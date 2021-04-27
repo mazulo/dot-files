@@ -690,3 +690,14 @@ endif
 
 "" fzf.vim
 nnoremap <silent> <C-f> :Files<CR>
+
+"" my coc extensions
+let g:coc_global_extensions = [
+    \'coc-prettier',
+    \'coc-json',
+    \'coc-html',
+    \'coc-eslint',
+    \'coc-tsserver',
+    \'coc-pyright',
+    \'coc-css'
+    \]
