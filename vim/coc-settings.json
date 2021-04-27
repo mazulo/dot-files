@@ -1,0 +1,17 @@
+{
+    "python.venvPath": "$HOME/.virtualenvs/",
+    "suggest.noselect": false,
+    "python.linting.enabled": true,
+    "python.linting.prospectorEnabled": true,
+    "eslint.format.enable": true,
+    "typescript.format.enabled": false,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript",
+        "python",
+        "typescript",
+        "typescriptreact",
+        "json",
+        "javascriptreact",
+        "typescript.tsx"
+    ]
+}
