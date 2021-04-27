@@ -3,6 +3,8 @@
     "suggest.noselect": false,
     "python.linting.enabled": true,
     "python.linting.prospectorEnabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/usr/bin/blue",
     "eslint.format.enable": true,
     "typescript.format.enabled": false,
     "coc.preferences.formatOnSaveFiletypes": [
