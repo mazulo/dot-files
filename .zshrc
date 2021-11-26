@@ -22,26 +22,26 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/bin/virtualenvwrapper.sh
 
-# Tilix fix
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
-
 export PATH="/home/mazulo/.gem/ruby/2.7.0/bin:$PATH"
 
 # added by travis gem
 [ ! -s /home/mazulo/.travis/travis.sh ] || source /home/mazulo/.travis/travis.sh
 
 # Initializing startship
-eval "$(starship init zsh)"
+# Not using for now
+# eval "$(starship init zsh)"
 
 # Docker aliases
 alias run=./bin/run
-alias update-deps=./bin/update-deps
 
 # Git aliases
 alias gad="git add"
 
 # Terminal
 TERM=xterm-256color
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
 
