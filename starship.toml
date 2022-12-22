@@ -1,6 +1,8 @@
 # Replace the "❯" symbol in the prompt with "➜"
+command_timeout = 3000
+
 [character]      # The name of the module we are configuring is "character"
-symbol = "➜"     # The "symbol" segment is being set to "➜"
+success_symbol = "[➜](bold green)"  # The "symbol" segment is being set to "➜"
 
 [battery]
 full_symbol = "🔋"
@@ -14,13 +16,13 @@ style = "bold red"
 [docker_context]
 symbol = "🐋 "
 only_with_files = true
-disabled = false
+disabled = true
 
 [aws]
 disabled = true
 
 [git_branch]
-disabled = true
+disabled = false
 
 [git_commit]
 disabled = true
@@ -31,3 +33,10 @@ disabled = true
 [git_status]
 disabled = true
 
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[python]
+pyenv_version_name = false
+format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
