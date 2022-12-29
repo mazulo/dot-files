@@ -48,6 +48,7 @@ require("nvim-tree").setup({
 		bufmap("gh", api.tree.toggle_hidden_filter, "Toggle hidden files")
 	end,
 })
+require("nvim-treesitter.install").prefer_git = true
 
 vim.cmd([[
   let g:airline#extensions#tabline#enabled = 1

@@ -5,6 +5,7 @@ In order for some of the `nvim` features to work, we need to install a few libs:
 - `lua-language-server`
 
 ```bash
+sudo apt-get install ripgrep
 cargo install stylua
 npm install -g typescript typescript-language-server
 python -m pip install neovim

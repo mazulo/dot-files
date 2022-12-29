@@ -39,7 +39,7 @@ return require("packer").startup(function(use)
 	-- Telescope used to fuzzy search files
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		branch = "master",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	-- Lualine information / Status bar
