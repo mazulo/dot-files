@@ -403,4 +403,3 @@ set -g @tpm_plugins '          \
   tmux-plugins/tmux-resurrect  \
   samoshkin/tmux-plugin-sysstat  \
 '
-set -g @continuum-restore 'on'
