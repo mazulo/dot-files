@@ -1,8 +1,6 @@
-# Path to your oh-my-zsh installation.
 # export ZSH=/home/mazulo/.oh-my-zsh
-# ZSH_THEME="fox"
+ZSH_THEME="gozilla"
 # ENABLE_CORRECTION="true"
-# plugins=(git celery django docker docker-compose heroku node npm yarn pip postgres python redis-cli)
 # source $ZSH/oh-my-zsh.sh
 
 # Load Antigen
@@ -41,7 +39,4 @@ alias gad="git add"
 TERM=xterm-256color
 
 export PATH="$HOME/.poetry/bin:$PATH"
-
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
 
