@@ -66,7 +66,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -170,6 +170,18 @@ lvim.plugins = {
   },
   { "lunarvim/colorschemes" },
   { "tiagovla/tokyodark.nvim" },
+  {
+		"folke/persistence.nvim",
+		event = "BufReadPre", -- this will only start session saving when an actual file was opened
+		module = "persistence",
+		config = function()
+			require("persistence").setup({
+				dir = vim.fn.expand(vim.fn.stdpath("config") .. "/session/"),
+				options = { "buffers", "curdir", "tabpages", "winsize" },
+			})
+		end,
+	},
+  { "mg979/vim-visual-multi", disable = false, config = function() end },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -203,3 +215,50 @@ lvim.builtin.which_key.vmappings.y = {
 lvim.builtin.which_key.vmappings.p = {
  '"+p', "Paste from clipboard"
 }
+
+lvim.builtin.which_key.mappings["g"] = {
+	name = "Git",
+	s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+	b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+	c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+	C = {
+		"<cmd>Telescope git_bcommits<cr>",
+		"Checkout commit(for current file)",
+	},
+	d = {
+		"<cmd>Gitsigns diffthis HEAD<cr>",
+		"Git Diff",
+	},
+	-- g = { "<cmd>LazyGit<cr>", "LazyGit" },
+	M = {
+		":!git branch --merged | Select-String -Pattern '^(?!.*(master|.*-stable)).*$' | ForEach-Object { git branch -d $_.ToString().Trim() } <cr>",
+		"clean merged branch",
+	},
+}
+
+-- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
+	{ command = "black", filetypes = { "python" } },
+	{ command = "stylua", filetypes = { "lua" } },
+	{ command = "clang-format", filetypes = { "javascript", "json" } },
+	-- { command = "isort", filetypes = { "python" } },
+	-- {
+	--   -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+	--   command = "prettier",
+	--   ---@usage arguments to pass to the formatter
+	--   -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+	--   extra_args = { "--print-with", "100" },
+	--   ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+	--   filetypes = { "typescript", "typescriptreact" },
+	-- },
+})
+
+-- restore the session for the current directory
+vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+
+-- restore the last session
+vim.api.nvim_set_keymap("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
+
+-- stop Persistence => session won't be saved on exit
+vim.api.nvim_set_keymap("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
