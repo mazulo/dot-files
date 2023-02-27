@@ -1,0 +1,7 @@
+[config]
+svn = "GitHub"
+repo = "https://github.com/mazulo/dot-files"
+local_path = "/home/mazulo/dev/packages/dot-files"
+
+[config.profiles."DESKTOP-4ME889O.mazulo"]
+local_path = "/home/mazulo/dev/packages/dot-files"
