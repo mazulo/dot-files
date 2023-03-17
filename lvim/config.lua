@@ -182,7 +182,93 @@ lvim.plugins = {
 		end,
 	},
   { "mg979/vim-visual-multi", disable = false, config = function() end },
+  { "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup({
+        method = "getCompletionsCycling",
+        formatters = {
+          insert_text = require("copilot_cmp.format").remove_existing
+        },
+      })
+    end,
+  },
+  { "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup {
+          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        }
+      end, 100)
+    end,
+  },
+  -- { "zbirenbaum/copilot.lua",
+  --   event = { "VimEnter" },
+  --   config = function()
+  --     vim.defer_fn(function()
+  --       require("copilot").setup {
+  --         plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+  --       }
+  --     end, 100)
+  --   end,
+  -- },
+  -- { "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua", "nvim-cmp" },
+  -- },
 }
+
+-- table.insert(lvim.plugins, {
+--   "zbirenbaum/copilot-cmp",
+--   requires = { "zbirenbaum/copilot.lua" },
+--   config = function()
+--     vim.defer_fn(function()
+--       require("copilot").setup({
+--         suggestion = { enabled = false },
+--         panel = { enabled = false }
+--       }) -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+--       require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+--     end, 100)
+--   end,
+-- })
+--
+-- Copilot Configuration
+local cmp_config = require("cmp")
+
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+end
+
+lvim.builtin.cmp.mapping = {
+  ["<Tab>"] = vim.schedule_wrap(function(fallback)
+    if cmp_config.visible() and has_words_before() then
+      cmp_config.select_next_item({ behavior = cmp_config.SelectBehavior.Select })
+    else
+      fallback()
+    end
+  end),
+  ["<CR>"] = cmp_config.mapping.confirm({
+    -- this is the important line
+    behavior = cmp_config.ConfirmBehavior.Replace,
+    select = true,
+  }),
+}
+lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot", group_index = 2 })
+
+
+-- lvim.builtin.cmp.event:on("menu_opened", function()
+--   vim.b.copilot_suggestion_hidden = true
+-- end)
+
+-- lvim.builtin.cmp.event:on("menu_closed", function()
+--   vim.b.copilot_suggestion_hidden = false
+-- end)
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -255,14 +341,13 @@ formatters.setup({
 })
 
 -- restore the session for the current directory
-vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+vim.api.nvim_set_keymap("n", "<leader>rs", [[<cmd>lua require("persistence").load()<cr>]], {})
 
 -- restore the last session
-vim.api.nvim_set_keymap("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
+vim.api.nvim_set_keymap("n", "<leader>rl", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
 
 -- stop Persistence => session won't be saved on exit
 vim.api.nvim_set_keymap("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
-
 
 -- pyright configuration
 vim.lsp.set_log_level("debug")
