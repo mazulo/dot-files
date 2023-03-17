@@ -39,7 +39,4 @@ disabled = true
 
 [python]
 pyenv_version_name = false
-format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
-
-[nodejs]
-format = ''
+format ='{$git_branch} via [${symbol}(${version} )(\($virtualenv\) )]($style)'
