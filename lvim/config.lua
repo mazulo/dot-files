@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = false
-lvim.colorscheme = "tokyodark"
+lvim.colorscheme = "tokyonight-moon"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -182,17 +182,7 @@ lvim.plugins = {
 		end,
 	},
   { "mg979/vim-visual-multi", disable = false, config = function() end },
-  { "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup({
-        method = "getCompletionsCycling",
-        formatters = {
-          insert_text = require("copilot_cmp.format").remove_existing
-        },
-      })
-    end,
-  },
+  { "ekalinin/Dockerfile.vim" },
   { "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
@@ -206,35 +196,19 @@ lvim.plugins = {
       end, 100)
     end,
   },
-  -- { "zbirenbaum/copilot.lua",
-  --   event = { "VimEnter" },
-  --   config = function()
-  --     vim.defer_fn(function()
-  --       require("copilot").setup {
-  --         plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
-  --       }
-  --     end, 100)
-  --   end,
-  -- },
-  -- { "zbirenbaum/copilot-cmp",
-  --   after = { "copilot.lua", "nvim-cmp" },
-  -- },
+  { "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua", "nvim-cmp" },
+    config = function()
+      require("copilot_cmp").setup({
+        method = "getCompletionsCycling",
+        formatters = {
+          insert_text = require("copilot_cmp.format").remove_existing
+        },
+      })
+    end,
+  },
 }
 
--- table.insert(lvim.plugins, {
---   "zbirenbaum/copilot-cmp",
---   requires = { "zbirenbaum/copilot.lua" },
---   config = function()
---     vim.defer_fn(function()
---       require("copilot").setup({
---         suggestion = { enabled = false },
---         panel = { enabled = false }
---       }) -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
---       require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
---     end, 100)
---   end,
--- })
---
 -- Copilot Configuration
 local cmp_config = require("cmp")
 
@@ -260,15 +234,6 @@ lvim.builtin.cmp.mapping = {
 }
 lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
 table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot", group_index = 2 })
-
-
--- lvim.builtin.cmp.event:on("menu_opened", function()
---   vim.b.copilot_suggestion_hidden = true
--- end)
-
--- lvim.builtin.cmp.event:on("menu_closed", function()
---   vim.b.copilot_suggestion_hidden = false
--- end)
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 vim.api.nvim_create_autocmd("BufEnter", {
@@ -389,7 +354,7 @@ end
 require('lspconfig')["pyright"].setup {
   on_attach = on_attach,
   settings = {
-    pyright = {autoImportCompletion = true,},
+    pyright = { autoImportCompletion = true },
     python = {
       analysis = {
         autoSearchPaths = true,
@@ -399,7 +364,6 @@ require('lspconfig')["pyright"].setup {
       }
     }
   },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = { debounce_text_changes = 150 },
 }
+require("lspconfig")["dockerls"].setup {}
