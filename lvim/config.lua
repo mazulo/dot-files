@@ -6,7 +6,7 @@
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- general
 lvim.log.level = "info"
@@ -138,8 +138,16 @@ lvim.plugins = {
 			vim.defer_fn(function()
 				require("copilot").setup({
 					plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
-					suggestion = { enabled = false },
+					suggestion = {
+						enabled = false,
+						keymap = {
+							next = "<C-]>",
+							prev = "<C-[>",
+							dismiss = "<C-\\>",
+						},
+					},
 					panel = { enabled = false },
+					filetypes = { "lua", "c", "javascript", "typescript", "rust", "python", "html" },
 				})
 			end, 100)
 		end,
@@ -152,6 +160,8 @@ lvim.plugins = {
 				method = "getCompletionsCycling",
 				formatters = {
 					insert_text = require("copilot_cmp.format").remove_existing,
+					preview = require("copilot_cmp.format").deindent,
+					label = require("copilot_cmp.format").format_label_text,
 				},
 			})
 		end,
@@ -168,7 +178,10 @@ lvim.plugins = {
 -- })
 
 -- Copilot Configuration
-local cmp_config = require("cmp")
+-- Define a highlight group for the Copilot icon
+vim.cmd("highlight MyCopilotIcon guifg=#ffa500")
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 local has_words_before = function()
 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -178,22 +191,148 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
-lvim.builtin.cmp.mapping = {
-	["<Tab>"] = vim.schedule_wrap(function(fallback)
-		if cmp_config.visible() and has_words_before() then
-			cmp_config.select_next_item({ behavior = cmp_config.SelectBehavior.Select })
+local check_backspace = function()
+	local col = vim.fn.col(".") - 1
+	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
+local kind_icons = {
+	Text = "",
+	Method = "",
+	Function = "",
+	Constructor = "",
+	Field = "",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "",
+	Unit = "",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+	Copilot = vim.fn.nr2char(0xe708),
+}
+
+cmp.mapping = cmp.mapping.preset.insert({
+	["<Tab>"] = cmp.mapping(function(fallback)
+		-- if require("copilot.suggestion").is_visible() then
+		--   require("copilot.suggestion").accept()
+		if cmp.visible() and has_words_before() then
+			cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+		elseif not cmp.select_next_item() then
+			if vim.bo.buftype ~= "prompt" and has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		elseif luasnip.expandable() then
+			luasnip.expand()
+		elseif luasnip.expand_or_jumpable() then
+			luasnip.expand_or_jump()
+		elseif check_backspace() then
+			fallback()
 		else
 			fallback()
 		end
-	end),
-	["<CR>"] = cmp_config.mapping.confirm({
+	end, {
+		"i",
+		"s",
+	}),
+	["<S-Tab>"] = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			cmp.select_prev_item()
+		elseif luasnip.jumpable(-1) then
+			luasnip.jump(-1)
+		else
+			fallback()
+		end
+	end, {
+		"i",
+		"s",
+	}),
+	["<CR>"] = cmp.mapping.confirm({
 		-- this is the important line
-		behavior = cmp_config.ConfirmBehavior.Replace,
+		behavior = cmp.ConfirmBehavior.Replace,
 		select = true,
 	}),
+	["<C-s>"] = cmp.mapping.complete({
+		config = {
+			sources = {
+				{ name = "copilot" },
+			},
+		},
+	}),
+	["<C-k>"] = cmp.mapping.select_prev_item(),
+	["<C-j>"] = cmp.mapping.select_next_item(),
+	["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+	["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+	["<C-e>"] = cmp.mapping.close(),
+})
+cmp.source = {
+	{ name = "copilot", group_index = 2, priority = 100 },
+	{ name = "nvim_lsp", group_index = 2 },
+	{ name = "path", group_index = 2 },
+	{ name = "orgmode", group_index = 2 },
+	{ name = "neorg", group_index = 2 },
+	{ name = "nvim_lua", group_index = 2 },
 }
-lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
-table.insert(lvim.builtin.cmp.sources, 1, { name = "copilot", group_index = 2 })
+cmp.snippet = {
+	expand = function(args)
+		require("luasnip").lsp_expand(args.body)
+	end,
+}
+cmp.window = {
+	completion = cmp.config.window.bordered(),
+	documentation = cmp.config.window.bordered(),
+}
+cmp.experimental = {
+	ghost_text = true,
+}
+cmp.formatting = {
+	fields = { "kind", "abbr", "menu" },
+	format = function(entry, vim_item)
+		vim_item.kind = kind_icons[vim_item.kind]
+		vim_item.menu = ({
+			nvim_lsp = "",
+			nvim_lua = "",
+			buffer = "",
+			path = "",
+			emoji = "",
+		})[entry.source.name]
+		return vim_item
+	end,
+}
+cmp.confirm_opts = {
+	behavior = cmp.ConfirmBehavior.Replace,
+	select = false,
+}
+cmp.sorting = {
+	priority_weight = 2,
+	comparators = {
+		require("copilot_cmp.comparators").prioritize,
+		cmp.config.compare.recently_used,
+		cmp.config.compare.offset,
+		cmp.config.compare.exact,
+		cmp.config.compare.score,
+		cmp.config.compare.locality,
+		cmp.config.compare.kind,
+		cmp.config.compare.sort_text,
+		cmp.config.compare.length,
+		cmp.config.compare.order,
+	},
+}
 
 -- custom config
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 120
@@ -235,6 +374,34 @@ lvim.builtin.which_key.mappings["g"] = {
 		":!git branch --merged | Select-String -Pattern '^(?!.*(master|.*-stable)).*$' | ForEach-Object { git branch -d $_.ToString().Trim() } <cr>",
 		"clean merged branch",
 	},
+}
+lvim.builtin.which_key.mappings["s"] = {
+	name = "Search",
+	b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+	c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+	f = { "<cmd>Telescope find_files<cr>", "Find File" },
+	h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+	H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
+	M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+	r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	R = { "<cmd>Telescope registers<cr>", "Registers" },
+	t = {
+		"<cmd>lua require('telescope.builtin').live_grep({layout_strategy = 'vertical', layout_config = {width = 0.7, height = 0.8, preview_cutoff = 60, prompt_position = 'top'}})<cr>",
+		"Text",
+	},
+	k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+	C = { "<cmd>Telescope commands<cr>", "Commands" },
+	l = { "<cmd>Telescope resume<cr>", "Resume last search" },
+	p = {
+		"<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>",
+		"Colorscheme with Preview",
+	},
+}
+lvim.builtin.which_key.setup.layout = {
+	height = { min = 50, max = 50 },
+	width = { min = 50, max = 80 },
+	spacing = 3,
+	align = "center",
 }
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
