@@ -19,6 +19,8 @@ lvim.plugins = {
 	{ "ekalinin/Dockerfile.vim" },
 	{
 		"zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
 		config = function()
 			-- vim.defer_fn(function()
 			require("copilot").setup({
@@ -28,15 +30,18 @@ lvim.plugins = {
 		end,
 	},
 	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = { "copilot.lua", "nvim-cmp" },
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+    "zbirenbaum/copilot-cmp",
+    config = function ()
+      require("copilot_cmp").setup()
+    end,
+    event = { "InsertEnter", "LspAttach" },
+    fix_pairs = true,
+  },
+  { "onsails/lspkind-nvim" },
 	{ "ChristianChiarulli/swenv.nvim" },
 	{ "stevearc/dressing.nvim" },
 	{ "mfussenegger/nvim-dap-python" },
+  {"vmchale/just-vim"},
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
 	-- 	cmd = "Copilot",
@@ -60,17 +65,17 @@ lvim.plugins = {
 	-- 	end,
 	-- },
 	-- {
-	-- 	"zbirenbaum/copilot-cmp",
-	-- 	dependencies = { "copilot.lua", "nvim-cmp" },
-	-- 	config = function()
-	-- 		require("copilot_cmp").setup({
-	-- 			method = "getCompletionsCycling",
-	-- 			formatters = {
-	-- 				insert_text = require("copilot_cmp.format").remove_existing,
-	-- 				preview = require("copilot_cmp.format").deindent,
-	-- 				label = require("copilot_cmp.format").format_label_text,
-	-- 			},
-	-- 		})
-	-- 	end,
+		-- "zbirenbaum/copilot-cmp",
+		-- dependencies = { "copilot.lua", "nvim-cmp" },
+		-- config = function()
+		-- 	require("copilot_cmp").setup({
+		-- 		method = "getCompletionsCycling",
+		-- 		formatters = {
+		-- 			insert_text = require("copilot_cmp.format").remove_existing,
+		-- 			preview = require("copilot_cmp.format").deindent,
+		-- 			label = require("copilot_cmp.format").format_label_text,
+		-- 		},
+		-- 	})
+		-- end,
 	-- },
 }

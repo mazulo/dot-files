@@ -30,7 +30,8 @@ formatters.setup({
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 120
 
 
-require("lspconfig")["dockerls"].setup({})
+-- require("lspconfig")["dockerls"].setup({})
+lvim.lsp.automatic_servers_installation = false
 
 reload "user.plugins"
 reload "user.nvimtree"
@@ -44,3 +45,4 @@ reload "user.autocommands"
 reload "user.keymaps"
 reload "user.treesitter"
 reload "user.whichkey"
+reload "user.go"

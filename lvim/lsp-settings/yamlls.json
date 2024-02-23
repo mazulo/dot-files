@@ -1,0 +1,7 @@
+{
+    "yaml.completion": false,
+    "yaml.format.enable": false,
+    "yaml.schemaStore.enable": false,
+    "yaml.schemas": {},
+    "yaml.validate": false
+}
