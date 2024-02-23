@@ -1,28 +1,22 @@
 -- setup formatting
-local formatters = require("lvim.lsp.null-ls.formatters")
--- formatters.setup({ { name = "black" } })
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*.py" }
 
+local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	-- { command = "black", filetypes = { "python" } },
-	{ command = "isort", filetypes = { "python" } },
 	{
-    command = "ruff",
-    filetypes = { "python" },
-    args = { "--fix", "-e", "-n", "--stdin-filename", "$FILENAME", "-" }
-  },
+		command = "ruff",
+		filetypes = { "python" },
+	},
 })
 
 -- setup linting
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
-	-- { command = "flake8", filetypes = { "python" } },
 	{
-    command = "ruff",
-    filetypes = { "python" },
-    { "-n", "-e", "--stdin-filename", "$FILENAME", "-" },
-  },
+		command = "ruff",
+		filetypes = { "python" },
+	},
 })
 
 -- setup debug adapter
@@ -82,8 +76,8 @@ require("lspconfig")["pyright"].setup({
 		},
 	},
 	flags = { debounce_text_changes = 150 },
-  root_dir = function(fname)
-    return util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
-      util.path.dirname(fname)
-  end
+	root_dir = function(fname)
+		return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
+			or util.path.dirname(fname)
+	end,
 })
