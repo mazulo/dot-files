@@ -12,3 +12,10 @@ python -m pip install neovim
 git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
 
+Other tools used:
+
+
+- [`direnv`](https://direnv.net/)
+- [`git-delta`](https://dandavison.github.io/delta/configuration.html)
+- [`tealdeer`](https://dbrgn.github.io/tealdeer/installing.html)
+- [`mise`](https://mise.jdx.dev/getting-started.html)
