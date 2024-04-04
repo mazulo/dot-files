@@ -33,16 +33,17 @@ lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 120
 -- require("lspconfig")["dockerls"].setup({})
 lvim.lsp.automatic_servers_installation = false
 
-reload "user.plugins"
-reload "user.nvimtree"
-reload "user.git"
-reload "user.cmp"
-reload "user.copilot-config"
-reload "user.options"
-reload "user.python"
-reload "user.javascript"
-reload "user.autocommands"
-reload "user.keymaps"
-reload "user.treesitter"
-reload "user.whichkey"
-reload "user.go"
+reload("user.plugins")
+reload("user.nvimtree")
+reload("user.git")
+reload("user.cmp")
+reload("user.copilot-config")
+reload("user.options")
+reload("user.python")
+reload("user.javascript")
+reload("user.autocommands")
+reload("user.keymaps")
+reload("user.treesitter")
+reload("user.whichkey")
+reload("user.go")
+reload("user.telescope")

@@ -18,9 +18,9 @@ lvim.plugins = {
 	{ "mg979/vim-visual-multi", enabled = true, config = function() end },
 	{ "ekalinin/Dockerfile.vim" },
 	{
-		"zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
 		config = function()
 			-- vim.defer_fn(function()
 			require("copilot").setup({
@@ -30,52 +30,31 @@ lvim.plugins = {
 		end,
 	},
 	{
-    "zbirenbaum/copilot-cmp",
-    config = function ()
-      require("copilot_cmp").setup()
-    end,
-    event = { "InsertEnter", "LspAttach" },
-    fix_pairs = true,
-  },
-  { "onsails/lspkind-nvim" },
+        "zbirenbaum/copilot-cmp",
+        event = { "InsertEnter", "LspAttach" },
+        fix_pairs = true,
+        config = function ()
+            require("copilot_cmp").setup()
+        end,
+    },
+    { "onsails/lspkind-nvim" },
 	{ "ChristianChiarulli/swenv.nvim" },
 	{ "stevearc/dressing.nvim" },
 	{ "mfussenegger/nvim-dap-python" },
-  {"vmchale/just-vim"},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		vim.defer_fn(function()
-	-- 			require("copilot").setup({
-	-- 				plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
-	-- 				suggestion = {
-	-- 					enabled = false,
-	-- 					keymap = {
-	-- 						next = "<C-]>",
-	-- 						prev = "<C-[>",
-	-- 						dismiss = "<C-\\>",
-	-- 					},
-	-- 				},
-	-- 				panel = { enabled = false },
-	-- 				filetypes = { "lua", "c", "javascript", "typescript", "rust", "python", "html" },
-	-- 			})
-	-- 		end, 100)
-	-- 	end,
-	-- },
-	-- {
-		-- "zbirenbaum/copilot-cmp",
-		-- dependencies = { "copilot.lua", "nvim-cmp" },
-		-- config = function()
-		-- 	require("copilot_cmp").setup({
-		-- 		method = "getCompletionsCycling",
-		-- 		formatters = {
-		-- 			insert_text = require("copilot_cmp.format").remove_existing,
-		-- 			preview = require("copilot_cmp.format").deindent,
-		-- 			label = require("copilot_cmp.format").format_label_text,
-		-- 		},
-		-- 	})
-		-- end,
-	-- },
+    {"vmchale/just-vim"},
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            {
+                "nvim-telescope/telescope-live-grep-args.nvim" ,
+                -- This will not install any breaking changes.
+                -- For major updates, this must be adjusted manually.
+                version = "^1.0.0",
+            },
+        },
+        config = function()
+            require("telescope").load_extension("live_grep_args")
+        end
+    },
+    { "nvim-telescope/telescope-ui-select.nvim" },
 }
