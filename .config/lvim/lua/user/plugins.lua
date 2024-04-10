@@ -47,59 +47,13 @@ lvim.plugins = {
   { "vmchale/just-vim" },
   { "nvim-pack/nvim-spectre" },
   { "NoahTheDuke/vim-just" },
-  -- {
-  --     "kevinhwang91/nvim-ufo",
-  --     dependencies = {
-  --         "kevinhwang91/promise-async",
-  --         {
-  --             "luukvbaal/statuscol.nvim",
-  --             config = function()
-  --                 local builtin = require("statuscol.builtin")
-  --                 require("statuscol").setup({
-  --                     relculright = true,
-  --                     segments = {
-  --                         {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
-  --                         {text = {"%s"}, click = "v:lua.ScSa"},
-  --                         {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"}
-  --                     }
-  --                 })
-  --             end
-
-  --         }
-  --     }
-  -- }
-  --   {
-  --       "kevinhwang91/nvim-ufo",
-  --       dependencies = {
-  --           "kevinhwang91/promise-async",
-  --           {
-  --               "luukvbaal/statuscol.nvim",
-  --               config = function()
-  --                   local builtin = require("statuscol.builtin")
-  --                   require("statuscol").setup({
-  --                       relculright = true,
-  --                       segments = {
-  --                           { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-  --                           { text = { "%s" }, click = "v:lua.ScSa" },
-  --                           { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-  --                       },
-  --                   })
-  --               end,
-  --           },
-  --       },
-  --   },
-  -- { "anuvyklack/fold-preview.nvim", dependencies = "anuvyklack/keymap-amend.nvim", config = true },
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = "VeryLazy",
     opts = {
-      -- INFO: Uncomment to use treeitter as fold provider, otherwise nvim lsp is used
-      -- provider_selector = function(bufnr, filetype, buftype)
-      --   return { "treesitter", "indent" }
-      -- end,
       open_fold_hl_timeout = 400,
-      close_fold_kinds = { "imports", "comment" },
+      close_fold_kinds_for_ft = { default = { 'imports', 'comment' }, },
       preview = {
         win_config = {
           border = { "", "─", "", "", "", "─", "", "" },
@@ -117,7 +71,7 @@ lvim.plugins = {
     init = function()
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
       vim.o.foldcolumn = "1" -- '0' is not bad
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
     end,
