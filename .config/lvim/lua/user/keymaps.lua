@@ -21,7 +21,6 @@ vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap("n", "p", '"+p', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap("n", "P", '"+P', { noremap = true, silent = true })
 
-
 vim.api.nvim_set_keymap("n", "<Leader>p", '"_dP', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>y", '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Leader>y", '"+y', { noremap = true, silent = true })

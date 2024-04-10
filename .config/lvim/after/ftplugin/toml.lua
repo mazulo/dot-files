@@ -1,1 +1,1 @@
-require("lvim.lsp.manager").setup "taplo"
+require("lvim.lsp.manager").setup("taplo")
