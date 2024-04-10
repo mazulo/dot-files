@@ -2,31 +2,33 @@
 antigen use oh-my-zsh
 
 # Load bundles from the default repo (oh-my-zsh).
-antigen bundle cargo
-antigen bundle celery
-antigen bundle django
+antigen bundle git
 antigen bundle docker
 antigen bundle docker-compose
-antigen bundle git
-antigen bundle heroku
 antigen bundle kubectl
-antigen bundle node
-antigen bundle npm
-antigen bundle npx
-antigen bundle pip
-antigen bundle postgres
-antigen bundle pyenv
 antigen bundle python
-antigen bundle redis-cli
-antigen bundle yarn
-antigen bundle poetry
+antigen bundle nvm
+antigen bundle pyenv
+antigen bundle direnv
 
 # Load bundles from external repos.
-antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zpm-zsh/colors
+antigen bundle zpm-zsh/autoenv
+antigen bundle zpm-zsh/ls
+antigen bundle zpm-zsh/helpers
+antigen bundle zpm-zsh/clipboard
 
-if [ "$OSTYPE"="darwin18.0" ]; then antigen bundle osx; fi
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+antigen bundle chrisands/zsh-yarn-completions
+
+export NVM_COMPLETION=true
+antigen bundle lukechilds/zsh-nvm
+
+if [[ "$(uname)" =~ "Darwin" ]] ; then
+    antigen bundle macos;
+fi
 
 # Tell Antigen that you're done.
 antigen apply

@@ -1,20 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-# export ZSH=/Users/mazulo/.oh-my-zsh
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-
-# plugins=(
-#   git docker docker-compose cargo celery django kubectl node npm npx pip postgres pyenv python yarn
-# )
-
 # source $ZSH/oh-my-zsh.sh
 
 # Starship
@@ -31,6 +14,9 @@ source $HOME/antigen.zsh
 
 # Load Antigen configurations
 antigen init $HOME/.antigenrc
+
+# Load .profile
+# source $HOME/.profile
 
 # Updating PATH
 export PATH=/usr/local/bin:$PATH
@@ -100,6 +86,8 @@ export NVM_DIR="$HOME/.nvm"
 export PATH=/opt/homebrew/bin:/Users/mazulo/.local/bin:/usr/local/bin/nvim:/usr/local/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/Users/mazulo/.yarn/bin:/Users/mazulo/.config/yarn/global/node_modules/.bin:/Users/mazulo/.cargo/bin:/usr/local/opt/libxslt/bin:/usr/local/opt/libxml2/bin:/Users/mazulo/Dev/carta/carta-web/bin:/Users/mazulo/.pyenv/shims:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mazulo/Downloads/
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/Users/mazulo/bin:$PATH"
+export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+
 # Aliases
 alias files='g diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
 # alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | tr "\n" " "'
@@ -116,6 +104,4 @@ source <(afx init)
 export AFX_SHELL=zsh
 export AFX_SHELL=/opt/homebrew/bin/zsh
 
-# Fig post block. Keep at the bottom of this file.
-# [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-# export FPATH="/Users/mazulo/Dev/open-source/eza/completions/zsh:$FPATH"
+. "$HOME/.cargo/env"
