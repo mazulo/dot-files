@@ -24,10 +24,6 @@ vim.list_extend(
   { "yamlls", "yaml-language-server", "yaml_language_server" }
 )
 
-local query = {
-  filetype = "yaml", -- filetype
-  method = require("null-ls").methods.FORMATTING, -- null-ls method
-}
 local nls = require("null-ls")
 nls.disable("yaml")
 nls.disable("yamlls")
@@ -35,3 +31,10 @@ nls.disable("yamlfix")
 nls.disable("yamlfmt")
 nls.disable("yaml-language-server")
 nls.disable("yaml_language_server")
+
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+  languages = {
+    typescript = '// %s',
+  },
+}

@@ -12,5 +12,6 @@
 -- Create an autocmd for BufNewFile and BufRead events
 vim.api.nvim_create_autocmd("BufNewFile,BufRead", {
   pattern = { "*.gotmpl", "*.yaml" },
-  command = "autocmd BufNewFile,BufRead gohtmltmpl,gotexttmpl,gotmpl,yaml if search('{{.\\+}}', 'nw') | setlocal filetype=gotmpl | endif",
+  command =
+  "autocmd BufNewFile,BufRead gohtmltmpl,gotexttmpl,gotmpl,yaml if search('{{.\\+}}', 'nw') | setlocal filetype=gotmpl | endif",
 })

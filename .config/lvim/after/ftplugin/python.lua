@@ -18,14 +18,14 @@ local pyright_opts = {
         autoImportCompletions = true,
         autoSearchPaths = true,
         diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
-        typeCheckingMode = "off", -- off, basic, strict
+        typeCheckingMode = "off",         -- off, basic, strict
         useLibraryCodeForTypes = true,
       },
     },
   },
   root_dir = function(fname)
     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
-      or util.path.dirname(fname)
+        or util.path.dirname(fname)
   end,
 }
 

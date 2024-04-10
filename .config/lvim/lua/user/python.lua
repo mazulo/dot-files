@@ -35,9 +35,9 @@ lvim.builtin.which_key.mappings["C"] = {
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -78,6 +78,6 @@ require("lspconfig")["pyright"].setup({
   flags = { debounce_text_changes = 150 },
   root_dir = function(fname)
     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
-      or util.path.dirname(fname)
+        or util.path.dirname(fname)
   end,
 })
