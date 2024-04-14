@@ -10,8 +10,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- buffer local mappings
     local opts = { buffer = ev.buf }
-    -- go to definition
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 
     --puts doc header info into a float page
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)

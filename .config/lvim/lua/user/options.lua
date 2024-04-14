@@ -25,9 +25,6 @@ local options = {
   splitright = true,                       -- force all vertical splits to go to the right of current window
   undofile = true,                         -- enable persistent undo
   updatetime = 100,                        -- faster completion (4000ms default)
-  expandtab = true,                        -- convert tabs to spaces
-  shiftwidth = 4,                          -- the number of spaces inserted for each indentation
-  tabstop = 2,                             -- insert 2 spaces for a tab
   showcmd = false,
   relativenumber = false,                  -- set relative numbered lines
   wrap = false,                            -- display lines as one long line
@@ -38,3 +35,8 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+-- nvim-tree setup
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true

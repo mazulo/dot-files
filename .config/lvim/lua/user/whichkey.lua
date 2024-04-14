@@ -17,24 +17,6 @@ lvim.builtin.which_key.vmappings.p = {
   "Paste from clipboard",
 }
 
-lvim.builtin.which_key.mappings["g"] = {
-  name = "Git",
-  s = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-  b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-  c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-  C = {
-    "<cmd>Telescope git_bcommits<cr>",
-    "Checkout commit(for current file)",
-  },
-  d = {
-    "<cmd>Gitsigns diffthis HEAD<cr>",
-    "Git Diff",
-  },
-  M = {
-    ":!git branch --merged | Select-String -Pattern '^(?!.*(master|.*-stable)).*$' | ForEach-Object { git branch -d $_.ToString().Trim() } <cr>",
-    "clean merged branch",
-  },
-}
 lvim.builtin.which_key.mappings["s"] = {
   name = "Search",
   c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
@@ -117,10 +99,6 @@ lvim.builtin.which_key.mappings["g"] = {
   b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
   c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
   f = { "<cmd>Telescope git_bcommits<cr>", "Checkout buffer commit" },
-  d = {
-    "<cmd>Gitsigns diffthis HEAD<cr>",
-    "Diff",
-  },
   G = {
     name = "Gist",
     a = { "<cmd>Gist -b -a<cr>", "Create Anon" },

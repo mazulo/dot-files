@@ -11,7 +11,7 @@ lvim.plugins = {
     event = "BufReadPre",
     config = function()
       require("persistence").setup({
-        dir = vim.fn.expand(vim.fn.stdpath("config") .. "/session/"),
+        dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
         options = { "buffers", "curdir", "tabpages", "winsize" },
       })
     end,
@@ -43,7 +43,6 @@ lvim.plugins = {
   { "onsails/lspkind-nvim" },
   { "ChristianChiarulli/swenv.nvim" },
   { "stevearc/dressing.nvim" },
-  { "mfussenegger/nvim-dap-python" },
   { "vmchale/just-vim" },
   { "nvim-pack/nvim-spectre" },
   { "NoahTheDuke/vim-just" },
@@ -121,4 +120,19 @@ lvim.plugins = {
       end)
     end,
   },
+  { "nvim-tree/nvim-web-devicons" },
+  {
+    'simonmclean/triptych.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-lua/plenary.nvim',       -- required
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+  },
+  { "romgrk/nvim-treesitter-context" },
+  { "rmagatti/goto-preview" },
+  {
+	  'LukasPietzschmann/telescope-tabs',
+	  dependencies = { 'nvim-telescope/telescope.nvim' },
+  }
 }

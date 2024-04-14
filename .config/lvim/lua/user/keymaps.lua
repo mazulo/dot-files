@@ -45,3 +45,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 vim.cmd("nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = lvim.lsp.popup_border}})<CR>")
 vim.cmd("nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next({popup_opts = {border = lvim.lsp.popup_border}})<CR>")
+
+-- triptych
+vim.keymap.set('n', '<Leader>-', ':Triptych<CR>', { silent = true })

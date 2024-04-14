@@ -1,7 +1,5 @@
-vim.lsp.set_log_level("info")
-lvim.lsp.automatic_servers_installation = false
-
 reload("user.plugins")
+reload("user.setup")
 reload("user.nvimtree")
 reload("user.git")
 reload("user.cmp")
@@ -9,8 +7,11 @@ reload("user.copilot-config")
 reload("user.options")
 reload("user.python")
 reload("user.javascript")
-reload("user.autocommands")
 reload("user.keymaps")
 reload("user.treesitter")
 reload("user.whichkey")
 reload("user.go")
+reload("user.formatters")
+reload("user.autocommands")
+
+vim.lsp.set_log_level("info")

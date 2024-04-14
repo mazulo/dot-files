@@ -1,3 +1,8 @@
+vim.list_extend(
+  lvim.lsp.automatic_configuration.skipped_servers,
+  { "pyright", "jsonls" }
+)
+
 -- setup formatting
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*.py" }
@@ -19,15 +24,7 @@ linters.setup({
   },
 })
 
--- setup debug adapter
-lvim.builtin.dap.active = true
-local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
-pcall(function()
-  require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
-end)
-
 -- binding for env switching
--- binding for switching
 lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
   e = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
@@ -37,13 +34,13 @@ lvim.builtin.which_key.mappings["C"] = {
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", {buf = bufnr})
+  vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+  -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
@@ -62,22 +59,30 @@ local on_attach = function(_, bufnr)
 end
 
 local util = require("lspconfig/util")
-require("lspconfig")["pyright"].setup({
+
+local pyright_opts = {
   on_attach = on_attach,
+  single_file_support = true,
   settings = {
-    pyright = { autoImportCompletion = true },
+    pyright = {
+      disableLanguageServices = false,
+      disableOrganizeImports = true,
+      autoImportCompletion = true,
+    },
     python = {
       analysis = {
+        autoImportCompletions = true,
         autoSearchPaths = true,
-        diagnosticMode = "openFilesOnly",
+        diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
+        typeCheckingMode = "off",         -- off, basic, strict
         useLibraryCodeForTypes = true,
-        typeCheckingMode = "off",
       },
     },
   },
-  flags = { debounce_text_changes = 150 },
   root_dir = function(fname)
     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
         or util.path.dirname(fname)
   end,
-})
+}
+
+require("lvim.lsp.manager").setup("pyright", pyright_opts)
