@@ -1,0 +1,17 @@
+session_name: dot
+start_directory: /Users/mazulo/Dev/open-source/dot
+
+windows:
+- focus: 'true'
+  window_name: editor
+  layout: e8b4,314x87,0,0,25
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon dot && nvm use stable && lvim .
+- layout: ebe5,489x97,0,0,26
+  window_name: servers and shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: zsh

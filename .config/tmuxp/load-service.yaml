@@ -1,0 +1,23 @@
+session_name: load-service
+start_directory: /Users/mazulo/Dev/d7/freightflow/load-service
+
+windows:
+- focus: 'true'
+  window_name: editor
+  layout: 68b8,314x87,0,0,38
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon load-service && nvm use stable && lvim .
+- layout: ebe0,489x97,0,0,40
+  window_name: server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon load-service && nvm use stable
+- layout: ebe1,489x97,0,0,41
+  window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon load-service && nvm use stable

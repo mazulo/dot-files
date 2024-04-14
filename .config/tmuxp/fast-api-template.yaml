@@ -1,0 +1,30 @@
+session_name: 1-fast-api-template
+start_directory: /Users/mazulo/Dev/open-source/fast_api_template
+
+windows:
+- focus: 'true'
+  window_name: editor
+  layout: d0fe,314x87,0,0,1
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fast-api-template && nvm use stable && lvim .
+- layout: d75f,489x97,0,0,2
+  window_name: servers
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fast-api-template && nvm use stable
+- layout: d760,489x97,0,0,3
+  window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fast-api-template && nvm use stable
+- layout: d761,489x97,0,0,4
+  window_name: template test
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fast-api-template && nvm use stable
+  start_directory: /Users/mazulo/Dev/open-source/api

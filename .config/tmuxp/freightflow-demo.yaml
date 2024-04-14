@@ -1,0 +1,23 @@
+session_name: freightflow-demo
+start_directory: /Users/mazulo/Dev/d7/freightflow/freightflow-demo
+
+windows:
+- focus: 'true'
+  window_name: editor
+  layout: 68b1,314x87,0,0,31
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v12
+- layout: 6be2,489x97,0,0,32
+  window_name: server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v12
+- layout: 6be3,489x97,0,0,33
+  window_name: /Users/mazulo/Dev/d7/freightflow
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v12
