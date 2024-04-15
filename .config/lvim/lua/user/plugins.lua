@@ -1,21 +1,15 @@
 lvim.plugins = {
   {
     "folke/trouble.nvim",
-    cmd = "TroubleToggle",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
   },
   { "lunarvim/colorschemes" },
   { "tiagovla/tokyodark.nvim" },
-  {
-    "folke/persistence.nvim",
-    -- this will only start session saving when an actual file was opened
-    event = "BufReadPre",
-    config = function()
-      require("persistence").setup({
-        dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
-        options = { "buffers", "curdir", "tabpages", "winsize" },
-      })
-    end,
-  },
   {
     "mg979/vim-visual-multi",
     enabled = true,
@@ -132,7 +126,12 @@ lvim.plugins = {
   { "romgrk/nvim-treesitter-context" },
   { "rmagatti/goto-preview" },
   {
-	  'LukasPietzschmann/telescope-tabs',
-	  dependencies = { 'nvim-telescope/telescope.nvim' },
-  }
+    'LukasPietzschmann/telescope-tabs',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+  },
+  {
+    "olimorris/persisted.nvim",
+    lazy = false, -- make sure the plugin is always loaded at startup
+    config = true
+  },
 }

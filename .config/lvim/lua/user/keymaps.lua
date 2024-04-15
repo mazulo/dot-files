@@ -1,8 +1,14 @@
 -- restore the session for the current directory
-vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+vim.api.nvim_set_keymap("n", "<leader>qs", ":SessionLoad<CR>", {})
 
 -- restore the last session
-vim.api.nvim_set_keymap("n", "<leader>ql", [[<cmd>lua require("persistence").load({ last = true })<cr>]], {})
+vim.api.nvim_set_keymap("n", "<leader>ql", ":Telescope persisted<CR>", {})
+
+-- save the current session
+vim.api.nvim_set_keymap("n", "<leader>qS", ":SessionSave<CR>", {})
+
+-- delete the current session
+vim.api.nvim_set_keymap("n", "<leader>qD", ":SessionDelete<CR>", {})
 
 -- stop Persistence => session won't be saved on exit
 vim.api.nvim_set_keymap("n", "<leader>qd", [[<cmd>lua require("persistence").stop()<cr>]], {})
@@ -16,11 +22,6 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent = true })
 
 -- Yank and paste to clipboard
--- vim.api.nvim_set_keymap("n", "y", '"+y', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "Y", '"+y$', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "p", '"+p', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "P", '"+P', { noremap = true, silent = true })
-
 vim.api.nvim_set_keymap("n", "<Leader>p", '"_dP', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<Leader>y", '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Leader>y", '"+y', { noremap = true, silent = true })
@@ -37,8 +38,6 @@ vim.api.nvim_set_keymap("n", "<A-l>", ":BufferLineCycleNext<CR>", { noremap = tr
 vim.api.nvim_set_keymap("n", "<A-h>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })
 lvim.keys.normal_mode["<A-Right>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<A-Left>"] = ":BufferLineCyclePrev<CR>"
-lvim.keys.normal_mode["<A-Up>"] = ":lua require('harpoon.ui').nav_prev()<CR>"
-lvim.keys.normal_mode["<A-Down>"] = ":lua require('harpoon.ui').nav_next()<CR>"
 
 -- my own keymaps
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
