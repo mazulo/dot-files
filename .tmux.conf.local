@@ -346,7 +346,7 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+# set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -402,5 +402,36 @@ set -g @tpm_plugins '          \
   tmux-plugins/tmux-continuum  \
   tmux-plugins/tmux-resurrect  \
   samoshkin/tmux-plugin-sysstat  \
+  catppuccin/tmux \
+  omerxx/tmux-sessionx \
+  rickstaa/tmux-notify \
+  sainnhe/tmux-fzf \
 '
 set-option -ga terminal-overrides ',XXX:Tc'
+bind s choose-tree -sZ -O name
+
+set -g @catppuccin_directory_text "#{s|$HOME|~|;s|/.*/|/…/|:pane_current_path}"
+
+set -g @catppuccin_window_left_separator "█"
+set -g @catppuccin_window_right_separator "█ "
+set -g @catppuccin_window_number_position "right"
+set -g @catppuccin_window_middle_separator "  █"
+
+set -g @catppuccin_window_default_fill "number"
+set -g @catppuccin_window_current_fill "number"
+set -g @catppuccin_window_current_text "#{s|$HOME|~|;s|/.*/|/…/|:pane_current_path}"
+set -g @catppuccin_window_default_text "#W"
+
+set -g @catppuccin_status_modules_right "application session date_time"
+set -g @catppuccin_status_left_separator  ""
+set -g @catppuccin_status_right_separator " "
+set -g @catppuccin_status_fill "all"
+set -g @catppuccin_status_connect_separator "yes"
+
+# --- tmux-sessionx setup
+# Open list of sessions
+set -g @sessionx-bind 's'
+
+# When set to 'on' a non-result will be sent to zoxide for path matching
+# Requires zoxide installed
+set -g @sessionx-zoxide-mode 'on'
