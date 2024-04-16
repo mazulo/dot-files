@@ -126,6 +126,11 @@ lvim.plugins = {
   { "romgrk/nvim-treesitter-context" },
   { "rmagatti/goto-preview" },
   {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = "nvim-tree/nvim-web-devicons"
+  },
+  {
     'LukasPietzschmann/telescope-tabs',
     dependencies = { 'nvim-telescope/telescope.nvim' },
   },
