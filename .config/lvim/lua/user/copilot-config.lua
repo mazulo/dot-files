@@ -76,17 +76,16 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
-cmp.setup({
-  mapping = {
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-      else
-        fallback()
-      end
-    end),
-  },
-})
+lvim.builtin.cmp.mapping = {
+  ["<Tab>"] = vim.schedule_wrap(function(fallback)
+    if cmp.visible() and has_words_before() then
+      cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    else
+      fallback()
+    end
+  end),
+}
+
 
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<C-a>", "<cmd>lua require('copilot.suggestion').toggle_auto_trigger()<CR>", opts)
