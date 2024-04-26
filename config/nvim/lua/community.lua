@@ -23,7 +23,6 @@ return {
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
   { import = "astrocommunity.completion.copilot-lua" },
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.code-runner.executor-nvim" },
   { import = "astrocommunity.debugging.nvim-chainsaw" },
