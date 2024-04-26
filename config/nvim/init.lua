@@ -17,3 +17,10 @@ end
 
 require "lazy_setup"
 require "polish"
+
+-- vim.api.nvim_set_keymap("n", "<Leader>p", '"_dP', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>y", '"+y', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("v", "<Leader>y", '"+y', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>Y", '"+y$', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>d", '"_d', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("v", "<Leader>d", '"_d', { noremap = true, silent = true })
