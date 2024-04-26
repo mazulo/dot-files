@@ -19,4 +19,12 @@ return {
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.project.nvim-spectre" },
+  { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
+  { import = "astrocommunity.programming-language-support.csv-vim" },
+  { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
+  { import = "astrocommunity.completion.copilot-lua" },
+  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.colorscheme.tokyonight-nvim" },
+  { import = "astrocommunity.code-runner.executor-nvim" },
+  { import = "astrocommunity.debugging.nvim-chainsaw" },
 }
