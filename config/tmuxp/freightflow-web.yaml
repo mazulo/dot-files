@@ -7,7 +7,7 @@ windows:
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable && lvim .
+    shell_command: workon freightflow-web && nvm use stable && nvim .
 - layout: d764,489x97,0,0,7
   window_name: server
   options: {}
