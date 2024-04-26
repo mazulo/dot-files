@@ -24,7 +24,6 @@ return {
         "prettier",
         "stylua",
         "prettierd",
-        "mypy",
         -- add more arguments for adding more null-ls sources
       })
     end,
