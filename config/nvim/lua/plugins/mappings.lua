@@ -22,11 +22,19 @@ return {
           ["<Leader>b"] = { name = "Buffers" },
           -- quick save
           -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+          -- mappings related to the behavior of cutting/deleting/pasting
+          ["x"] = { '"_x' },
           ["d"] = { '"_d' },
+          ["D"] = { '"_D' },
           ["p"] = { '"_dP' },
+          ["y"] = { '"+y' },
+          ["Y"] = { '"+y$' },
         },
         v = {
+          ["x"] = { '"_x' },
           ["d"] = { '"_d' },
+          ["D"] = { '"_D' },
+          ["y"] = { '"+y' },
         },
       },
     },
