@@ -54,6 +54,14 @@ return {
         if copilot.is_visible() then copilot.dismiss() end
       end)
 
+      opts.sources = cmp.config.sources {
+        { name = "copilot", priority = 1100 },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "buffer", priority = 500 },
+        { name = "path", priority = 250 },
+        { name = "luasnip", priority = 100 },
+      }
+
       return opts
     end,
   },
