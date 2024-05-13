@@ -1,13 +1,16 @@
 return {
   {
     "AstroNvim/astrocore",
-    ---@type AstroCoreOpts
     opts = {
       mappings = {
         -- first key is the mode
         n = {
+          -- navigate buffer tabs with `H` and `L`
+          L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+          H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
           -- second key is the lefthand side of the map
           -- mappings seen under group name "Buffer"
+          ["<Leader>b"] = { desc = "Buffers" },
           ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
           ["<Leader>bD"] = {
             function()
@@ -17,11 +20,9 @@ return {
             end,
             desc = "Pick to close",
           },
-          -- tables with the `name` key will be registered with which-key if it's installed
-          -- this is useful for naming menus
-          ["<Leader>b"] = { name = "Buffers" },
-          -- quick save
-          -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+
+          ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
+
           -- mappings related to the behavior of cutting/deleting/pasting
           ["x"] = { '"_x' },
           ["d"] = { '"_d' },
