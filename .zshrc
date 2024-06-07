@@ -90,6 +90,33 @@ export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 
 # Aliases
 alias files='g diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+source $ZSH/oh-my-zsh.sh
+
+# Pyenv settings
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path --no-rehash)"
+eval "$(pyenv virtualenv-init -)"
+
+# Replace l alias to use eza
+# unalias l
+# alias l="eza"
+
+
+# Shortcuts
+# alias files='git status --short | awk "{printf \"%s \", \$2}" | awk "{\$1=\$1}1"'
+# alias files='git status --short | awk "{if(\$2 ~ /\.py\$/ && \$1 != \"D\"){printf \"%s \", \$2}}" | awk "{\$1=\$1}1"'
+alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
+
+# Hatch
+. ~/.hatch-complete.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 # alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | tr "\n" " "'
 
 # Rye
@@ -103,5 +130,8 @@ source <(afx completion zsh)
 source <(afx init)
 export AFX_SHELL=zsh
 export AFX_SHELL=/opt/homebrew/bin/zsh
+
+# tmuxp
+export TMUXP_CONFIGDIR=./.config/tmuxp/
 
 . "$HOME/.cargo/env"
