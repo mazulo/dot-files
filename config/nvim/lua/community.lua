@@ -22,7 +22,7 @@ return {
   { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   { import = "astrocommunity.programming-language-support.csv-vim" },
   { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
-  { import = "astrocommunity.completion.copilot-lua" },
+  { import = "astrocommunity.completion.copilot-cmp" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.code-runner.executor-nvim" },
   { import = "astrocommunity.debugging.nvim-chainsaw" },
