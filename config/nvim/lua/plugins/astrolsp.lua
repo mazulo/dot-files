@@ -47,11 +47,6 @@ return {
     },
     -- customize how language servers are attached
     handlers = {
-      -- a function without a key is simply the default handler, functions take two parameters, the server name and the configured options table for that server
-      -- function(server, opts) require("lspconfig")[server].setup(opts) end
-
-      -- the key is the server that is being setup with `lspconfig`
-      -- rust_analyzer = false, -- setting a handler to false will disable the set up of that language server
       pyright = function(_, opts)
         local util = require "lspconfig/util"
         local pyright_opts = {
@@ -77,7 +72,15 @@ return {
               or util.path.dirname(fname)
           end,
         }
-        local opts_merged = vim.tbl_deep_extend("force", opts, pyright_opts)
+        local function tableMerge(result, ...)
+          for _, t in ipairs { ... } do
+            for _, v in ipairs(t) do
+              table.insert(result, v)
+            end
+          end
+        end
+        local opts_merged = {}
+        tableMerge(opts_merged, opts, pyright_opts)
         require("lspconfig").pyright.setup(opts_merged)
       end,
     },
@@ -110,24 +113,19 @@ return {
     mappings = {
       n = {
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-        -- a `cond` key can provided as the string of a server capability to be required to attach, or a function with `client` and `bufnr` parameters from the `on_attach` that returns a boolean
-        -- gD = {
-        --   function() vim.lsp.buf.declaration() end,
-        --   desc = "Declaration of current symbol",
-        --   cond = "textDocument/declaration",
-        -- },
-        -- ["<Leader>uY"] = {
-        --   function() require("astrolsp.toggles").buffer_semantic_tokens() end,
-        --   desc = "Toggle LSP semantic highlight (buffer)",
-        --   cond = function(client) return client.server_capabilities.semanticTokensProvider and vim.lsp.semantic_tokens end,
-        -- },
+        x = { '"_x' },
+        d = { '"_d' },
+        D = { '"_D' },
+        p = { '"_dP' },
+        y = { '"+y' },
+        Y = { '"+y$' },
+      },
+      v = {
+        x = { '"_x' },
+        d = { '"_d' },
+        D = { '"_D' },
+        y = { '"+y' },
       },
     },
-    -- A custom `on_attach` function to be run after the default `on_attach` function
-    -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
-    -- on_attach = function(client, bufnr)
-    -- this would disable semanticTokensProvider for all clients
-    -- client.server_capabilities.semanticTokensProvider = nil
-    -- end,
   },
 }

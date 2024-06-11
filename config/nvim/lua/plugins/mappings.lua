@@ -24,18 +24,18 @@ return {
           ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
 
           -- mappings related to the behavior of cutting/deleting/pasting
-          ["x"] = { '"_x' },
-          ["d"] = { '"_d' },
-          ["D"] = { '"_D' },
-          ["p"] = { '"_dP' },
-          ["y"] = { '"+y' },
-          ["Y"] = { '"+y$' },
+          x = { '"_x' },
+          d = { '"_d' },
+          D = { '"_D' },
+          p = { '"_dP' },
+          y = { '"+y' },
+          Y = { '"+y$' },
         },
         v = {
-          ["x"] = { '"_x' },
-          ["d"] = { '"_d' },
-          ["D"] = { '"_D' },
-          ["y"] = { '"+y' },
+          x = { '"_x' },
+          d = { '"_d' },
+          D = { '"_D' },
+          y = { '"+y' },
         },
       },
     },
