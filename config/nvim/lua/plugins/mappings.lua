@@ -23,6 +23,25 @@ return {
 
           ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
 
+          -- LSP mappings
+          gd = function() require("telescope.builtin").lsp_definitions { reuse_win = true } end,
+          gI = function() require("telescope.builtin").lsp_implementations { reuse_win = true } end,
+          gr = function() require("telescope.builtin").lsp_references() end,
+          gy = function() require("telescope.builtin").lsp_type_definitions { reuse_win = true } end,
+          ["<Leader>lG"] = function()
+            vim.ui.input({ prompt = "Symbol Query: (leave empty for word under cursor)" }, function(query)
+              if query then
+                -- word under cursor if given query is empty
+                if query == "" then query = vim.fn.expand "<cword>" end
+                require("telescope.builtin").lsp_workspace_symbols {
+                  query = query,
+                  prompt_title = ("Find word (%s)"):format(query),
+                }
+              end
+            end)
+          end,
+          ["<Leader>lR"] = function() require("telescope.builtin").lsp_references() end,
+
           -- mappings related to the behavior of cutting/deleting/pasting
           x = { '"_x' },
           d = { '"_d' },
