@@ -34,20 +34,31 @@ return {
       pyright = function(_, opts)
         local util = require "lspconfig/util"
         local pyright_opts = {
+          capabilities = {
+            textDocument = {
+              publishDiagnostics = {
+                tagSupport = {
+                  valueSet = { 2 },
+                },
+              },
+            },
+          },
           single_file_support = true,
           settings = {
             pyright = {
-              disableLanguageServices = false,
-              disableOrganizeImports = false,
-              autoImportCompletion = true,
+              disableOrganizeImports = true, -- Using Ruff
             },
             python = {
               analysis = {
                 autoImportCompletions = true,
                 autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly", -- openFilesOnly, workspace
-                typeCheckingMode = "off", -- off, basic, strict
+                diagnosticMode = "openFilesOnly",
+                typeCheckingMode = "off",
                 useLibraryCodeForTypes = true,
+                diagnosticSeverityOverrides = {
+                  -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
+                  reportUnusedVariable = "none",
+                },
               },
             },
           },
