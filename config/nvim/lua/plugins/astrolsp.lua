@@ -106,6 +106,11 @@ return {
     },
     mappings = {
       n = {
+        gD = {
+          function() vim.lsp.buf.declaration() end,
+          desc = "Declaration of current symbol",
+          cond = "textDocument/declaration",
+        },
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
         x = { '"_x' },
         d = { '"_d' },
