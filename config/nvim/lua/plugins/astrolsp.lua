@@ -43,21 +43,16 @@ return {
               },
             },
           },
-          single_file_support = true,
           settings = {
             pyright = {
               disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
             },
             python = {
               analysis = {
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly",
-                typeCheckingMode = "off",
-                useLibraryCodeForTypes = true,
+                ignore = { "*" }, -- Using Ruff
                 diagnosticSeverityOverrides = {
-                  -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
-                  reportUnusedVariable = "none",
+                  reportUndefinedVariable = "none",
                 },
               },
             },
