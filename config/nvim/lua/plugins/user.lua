@@ -370,6 +370,8 @@ return {
             },
             always_show = {
               --".gitignored",
+              ".env",
+              ".envrc",
             },
             always_show_by_pattern = {
               --".env*",
