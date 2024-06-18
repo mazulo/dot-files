@@ -22,7 +22,6 @@ return {
           },
 
           ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
-
           -- LSP mappings
           gd = function() require("telescope.builtin").lsp_definitions { reuse_win = true } end,
           gI = function() require("telescope.builtin").lsp_implementations { reuse_win = true } end,
@@ -41,7 +40,6 @@ return {
             end)
           end,
           ["<Leader>lR"] = function() require("telescope.builtin").lsp_references() end,
-
           -- mappings related to the behavior of cutting/deleting/pasting
           x = { '"_x' },
           d = { '"_d' },
