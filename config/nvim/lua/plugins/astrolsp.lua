@@ -19,15 +19,10 @@ return {
           "python",
         },
       },
-      disabled = {
-        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        -- "lua_ls",
-      },
+      disabled = {},
       timeout_ms = 1000,
     },
-    servers = {
-      -- "pyright"
-    },
+    servers = {},
     ---@diagnostic disable: missing-fields
     config = {},
     handlers = {
@@ -43,6 +38,7 @@ return {
               },
             },
           },
+          single_file_support = true,
           settings = {
             pyright = {
               disableOrganizeImports = true, -- Using Ruff
@@ -107,7 +103,24 @@ return {
           cond = "textDocument/declaration",
         },
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+        x = { '"_x' },
+        d = { '"_d' },
+        D = { '"_D' },
+        p = { '"_dP' },
+        y = { '"+y' },
+        Y = { '"+y$' },
+      },
+      v = {
+        x = { '"_x' },
+        d = { '"_d' },
+        D = { '"_D' },
+        y = { '"+y' },
       },
     },
   },
+  on_attach = function(client, _)
+    -- this would disable semanticTokensProvider for all clients
+    -- client.server_capabilities.semanticTokensProvider = nil
+    if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
+  end,
 }
