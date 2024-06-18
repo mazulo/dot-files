@@ -88,6 +88,9 @@ return {
         version = "2.*",
         config = function()
           require("window-picker").setup {
+            hint = "floating-big-letter",
+            selection_chars = "ASDFKL;CMRUEIWOQP",
+            prompt_message = "Pick window: ",
             filter_rules = {
               include_current_win = false,
               autoselect_one = true,
@@ -97,6 +100,32 @@ return {
                 filetype = { "neo-tree", "neo-tree-popup", "notify" },
                 -- if the buffer type is one of following, the window will be ignored
                 buftype = { "terminal", "quickfix" },
+              },
+            },
+            highlights = {
+              statusline = {
+                focused = {
+                  fg = "#ededed",
+                  bg = "#e35e4f",
+                  bold = true,
+                },
+                unfocused = {
+                  fg = "#ededed",
+                  bg = "#44cc41",
+                  bold = true,
+                },
+              },
+              winbar = {
+                focused = {
+                  fg = "#ededed",
+                  bg = "#e35e4f",
+                  bold = true,
+                },
+                unfocused = {
+                  fg = "#ededed",
+                  bg = "#44cc41",
+                  bold = true,
+                },
               },
             },
           }
