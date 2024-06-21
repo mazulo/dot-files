@@ -25,51 +25,7 @@ return {
     servers = {},
     ---@diagnostic disable: missing-fields
     config = {},
-    handlers = {
-      pyright = function(_, opts)
-        local util = require "lspconfig/util"
-        local pyright_opts = {
-          capabilities = {
-            textDocument = {
-              publishDiagnostics = {
-                tagSupport = {
-                  valueSet = { 2 },
-                },
-              },
-            },
-          },
-          single_file_support = true,
-          settings = {
-            pyright = {
-              disableOrganizeImports = true, -- Using Ruff
-              disableTaggedHints = true, -- Using Ruff
-            },
-            python = {
-              analysis = {
-                ignore = { "*" }, -- Using Ruff
-                diagnosticSeverityOverrides = {
-                  reportUndefinedVariable = "none",
-                },
-              },
-            },
-          },
-          root_dir = function(fname)
-            return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
-              or util.path.dirname(fname)
-          end,
-        }
-        local function tableMerge(result, ...)
-          for _, t in ipairs { ... } do
-            for _, v in ipairs(t) do
-              table.insert(result, v)
-            end
-          end
-        end
-        local opts_merged = {}
-        tableMerge(opts_merged, opts, pyright_opts)
-        require("lspconfig").pyright.setup(opts_merged)
-      end,
-    },
+    handlers = {},
     autocmds = {
       lsp_document_highlight = {
         cond = "textDocument/documentHighlight",
@@ -119,8 +75,6 @@ return {
     },
   },
   on_attach = function(client, _)
-    -- this would disable semanticTokensProvider for all clients
-    -- client.server_capabilities.semanticTokensProvider = nil
     if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
   end,
 }
