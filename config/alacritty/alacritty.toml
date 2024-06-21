@@ -34,6 +34,11 @@ style = "Italic"
 family = "SauceCodePro Nerd Font"
 style = "Regular"
 
+[window]
+option_as_alt = "Both"
+dynamic_title = true
+startup_mode = "Maximized"
+
 [[keyboard.bindings]]
 chars = "\u001B[27;5;105~"
 key = "I"
