@@ -33,3 +33,18 @@ style = "Italic"
 [font.normal]
 family = "SauceCodePro Nerd Font"
 style = "Regular"
+
+[[keyboard.bindings]]
+chars = "\u001B[27;5;105~"
+key = "I"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[27;5;9~"
+key = "Tab"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[27;6;9~"
+key = "Tab"
+mods = "Control|Shift"
