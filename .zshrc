@@ -122,8 +122,25 @@ export NVM_DIR="$HOME/.nvm"
 # Rye
 source "$HOME/.rye/env"
 
-# fzf config
+# tmuxp
+export TMUXP_CONFIGDIR=./.config/tmuxp/
+
+. "$HOME/.cargo/env"
+
+# ------------ fzf config ------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
+# CTRL-/ to toggle small preview window to see the full command
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
 
 # afx config
 source <(afx completion zsh)
@@ -135,3 +152,41 @@ export AFX_SHELL=/opt/homebrew/bin/zsh
 export TMUXP_CONFIGDIR=./.config/tmuxp/
 
 . "$HOME/.cargo/env"
+. "$HOME/.bin/disable.sh"
+. "$HOME/.bin/set_nvm.sh"
+. "$HOME/.bin/set_docker_compose_file.zsh"
+
+# ------------ ZSH Configuration ------------
+
+# Keybindings
+bindkey -e
+bindkey '^[[A' history-search-backward
+bindkey '^p' history-search-backward
+bindkey '^[[B' history-search-forward
+bindkey '^n' history-search-forward
+
+# History
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion style
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# tmux specific setup to make full use of it's "popup" feature
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+# Aliases
+alias ls='ls --color=auto'

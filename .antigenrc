@@ -14,11 +14,12 @@ antigen bundle direnv
 # Load bundles from external repos.
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zpm-zsh/colors
+# antigen bundle zpm-zsh/colors
 antigen bundle zpm-zsh/autoenv
-antigen bundle zpm-zsh/ls
+# antigen bundle zpm-zsh/ls
 antigen bundle zpm-zsh/helpers
 antigen bundle zpm-zsh/clipboard
+antigen bundle Aloxaf/fzf-tab
 
 antigen bundle zdharma-continuum/fast-syntax-highlighting
 antigen bundle chrisands/zsh-yarn-completions
