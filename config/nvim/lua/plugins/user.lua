@@ -145,6 +145,20 @@ return {
           "buffers",
           "git_status",
         },
+        event_handlers = {
+          {
+            event = "neo_tree_window_after_open",
+            handler = function(args)
+              if args.position == "left" or args.position == "right" then vim.cmd "wincmd =" end
+            end,
+          },
+          {
+            event = "neo_tree_window_after_close",
+            handler = function(args)
+              if args.position == "left" or args.position == "right" then vim.cmd "wincmd =" end
+            end,
+          },
+        },
         default_source = "filesystem",
         close_if_last_window = false,
         popup_border_style = "rounded",
@@ -230,6 +244,7 @@ return {
             { "current_filter" },
             {
               "container",
+              width = "fit_content",
               content = {
                 { "name", zindex = 10 },
                 {
@@ -253,6 +268,7 @@ return {
           { "icon" },
           {
             "container",
+            width = "fit_content",
             content = {
               {
                 "name",
@@ -293,6 +309,7 @@ return {
           position = "left",
           width = 40,
           height = 15,
+          auto_expand_width = true,
           mapping_options = {
             noremap = true,
             nowait = true,
@@ -413,6 +430,7 @@ return {
               --".null-ls_*",
             },
           },
+          bind_to_cwd = true,
           follow_current_file = {
             enabled = true,
             leave_dirs_open = true,
