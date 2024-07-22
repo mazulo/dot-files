@@ -20,6 +20,6 @@ return {
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.programming-language-support.csv-vim" },
-  { import = "astrocommunity.project.nvim-spectre" },
+  { import = "astrocommunity.search.nvim-spectre" },
   { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
 }
