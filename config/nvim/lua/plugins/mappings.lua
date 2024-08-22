@@ -40,6 +40,7 @@ return {
             end)
           end,
           ["<Leader>lR"] = function() require("telescope.builtin").lsp_references() end,
+          ["<leader>fg"] = function() require("telescope").extensions.live_grep_args.live_grep_args() end,
           -- mappings related to the behavior of cutting/deleting/pasting
           x = { '"_x' },
           d = { '"_d' },
