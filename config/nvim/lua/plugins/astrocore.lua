@@ -22,8 +22,12 @@ return {
         spell = true,
         signcolumn = "yes",
         wrap = false,
+        termguicolors = true,
       },
       g = {},
+      o = {
+        termguicolors = true,
+      },
     },
     mappings = {
       n = {
