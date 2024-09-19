@@ -49,7 +49,7 @@ return {
       }, {
         group = lint_augroup,
         callback = function() -- will trigger when any of the above events are triggered
-          lint.try_lint "mypy" -- the lint plugin which we loaded will try to execute linting
+          lint.try_lint() -- the lint plugin which we loaded will try to execute linting
         end,
       })
     end,
