@@ -42,6 +42,7 @@ return {
           desc = "Close buffer from tabline",
         },
         ["<Leader>b"] = { desc = "Buffers" },
+        ["<leader>nd"] = { "<cmd>NoiceDismiss<CR>", desc = "Dismiss Noice Message" },
       },
     },
   },
