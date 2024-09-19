@@ -552,4 +552,5 @@ return {
       }
     end,
   },
+  { "overleaf/vim-env-syntax", enabled = true },
 }
