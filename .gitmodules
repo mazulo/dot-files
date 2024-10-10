@@ -1,0 +1,3 @@
+[submodule ".config/grabber"]
+	path = .config/grabber
+	url = git@gitlab.com:mazulol/grabber.git
