@@ -474,3 +474,18 @@ set -g @sessionx-bind 's'
 # When set to 'on' a non-result will be sent to zoxide for path matching
 # Requires zoxide installed
 set -g @sessionx-zoxide-mode 'on'
+
+
+# When set to 'on' a non-result will be sent to zoxide for path matching
+# Requires zoxide installed
+# set -g @sessionx-zoxide-mode 'on'
+
+# Window mode can be turned on so that the default layout
+# Has all the windows listed rather than sessions only
+set -g @sessionx-window-mode 'off'
+
+# If you want to change the prompt, the space is nedded to not overlap the icon
+set -g @sessionx-prompt " "
+
+# If you want to change the pointer
+set -g @sessionx-pointer "▶ "
