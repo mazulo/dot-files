@@ -35,3 +35,4 @@ vim.keymap.set("n", "-", function()
     reveal_force_cwd = true, -- change cwd without asking if needed
   }
 end, { desc = "Open neo-tree at current file or working directory" })
+vim.opt.laststatus = 3
