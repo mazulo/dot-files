@@ -9,6 +9,12 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 autoload -Uz compinit
 compinit
 
+# Pyenv settings
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path --no-rehash)"
+eval "$(pyenv virtualenv-init -)"
+
 # Load Antigen
 source $HOME/antigen.zsh
 
@@ -94,12 +100,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 source $ZSH/oh-my-zsh.sh
-
-# Pyenv settings
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path --no-rehash)"
-eval "$(pyenv virtualenv-init -)"
 
 # Replace l alias to use eza
 # unalias l
