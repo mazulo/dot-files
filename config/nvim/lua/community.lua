@@ -5,7 +5,9 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.tokyodark-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
-  { import = "astrocommunity.completion.copilot-cmp", enabled = false },
+  -- { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.completion.codeium-nvim", enabled = false },
   { import = "astrocommunity.debugging.nvim-chainsaw" },
   {
     import = "astrocommunity.editing-support.ultimate-autopair-nvim",
@@ -36,6 +38,7 @@ return {
         { "<!--", "-->", ft = { "markdown", "html" }, space = true },
         { '"""', '"""', newline = true, ft = { "python" } },
         { "'''", "'''", newline = true, ft = { "python" } },
+        { "[", "]", fly = true, dosuround = true, newline = false, space = false, ft = { "python" } },
       },
     },
   },

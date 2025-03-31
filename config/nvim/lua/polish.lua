@@ -3,17 +3,17 @@
 -- fit in the normal config locations above can go here
 
 -- Set up custom filetypes
-vim.filetype.add {
-  extension = {
-    foo = "fooscript",
-  },
-  filename = {
-    ["Foofile"] = "fooscript",
-  },
-  pattern = {
-    ["~/%.config/foo/.*"] = "fooscript",
-  },
-}
+-- vim.filetype.add {
+--   extension = {
+--     foo = "fooscript",
+--   },
+--   filename = {
+--     ["Foofile"] = "fooscript",
+--   },
+--   pattern = {
+--     ["~/%.config/foo/.*"] = "fooscript",
+--   },
+-- }
 vim.keymap.set("n", "-", function()
   local reveal_file = vim.fn.expand "%:p"
   if reveal_file == "" then
@@ -36,3 +36,16 @@ vim.keymap.set("n", "-", function()
   }
 end, { desc = "Open neo-tree at current file or working directory" })
 vim.opt.laststatus = 3
+-- p 'pgv"'.v:register.'y`>'
+-- P 'Pgv"'.v:register.'y`>'
+-- vim.keymap.set("x", "<D-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("v", "<D-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("x", "<M-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("v", "<M-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("x", "<Alt-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("v", "<Alt-v>", function() return 'pgv"' .. vim.v.register .. '"_' end, { remap = false, expr = true })
+-- vim.keymap.set("x", "<D->v", function() return 'pgv"' .. vim.v.register .. "y`>" end, { remap = false, expr = true })
+-- vim.keymap.set("v", "<D->v", function() return 'pgv"' .. vim.v.register .. "y`>" end, { remap = false, expr = true })
+-- vim.keymap.set("x", "p", function() return 'Pgv"' .. vim.v.register .. "y`>" end, { remap = false, expr = true })
+-- vim.keymap.set({ "n" }, "<A-Tab>", function() vim.cmd ":bnext" end, { desc = "Move tab left" })
+-- vim.keymap.set({ 'n' }, '<M-]>', function() vim.cmd('BufferMoveNext') end, { desc = 'Move tab right' })

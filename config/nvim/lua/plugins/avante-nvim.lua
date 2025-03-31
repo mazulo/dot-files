@@ -56,7 +56,7 @@ return {
         {
           "yetone/avante.nvim",
           opts = {
-            provider = "copilot",
+            -- provider = "copilot",
             auto_suggestions_provider = "copilot",
             -- provider = "claude", -- Recommend using Claude
             -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
@@ -66,6 +66,25 @@ return {
             --   temperature = 0,
             --   max_tokens = 4096,
             -- },
+            -- provider = "openai",
+            -- openai = {
+            --   endpoint = "https://api.openai.com/v1",
+            --   model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+            --   timeout = 30000, -- timeout in milliseconds
+            --   temperature = 0, -- adjust if needed
+            --   max_tokens = 4096,
+            --   -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+            -- },
+            -- provider = "deepseek",
+            -- vendors = {
+            --   deepseek = {
+            --     __inherited_from = "openai",
+            --     api_key_name = "DEEPSEEK_API_KEY",
+            --     endpoint = "https://api.deepseek.com",
+            --     model = "deepseek-coder",
+            --   },
+            -- },
+            provider = "copilot",
           },
         },
       },

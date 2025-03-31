@@ -441,7 +441,6 @@ set -g @tpm_plugins '          \
   rickstaa/tmux-notify \
   sainnhe/tmux-fzf \
 '
-
 # True color settings
 set -g default-terminal "${TERM}"
 set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
@@ -476,48 +475,17 @@ set -g @sessionx-bind 's'
 # Requires zoxide installed
 set -g @sessionx-zoxide-mode 'on'
 
+
+# When set to 'on' a non-result will be sent to zoxide for path matching
+# Requires zoxide installed
+# set -g @sessionx-zoxide-mode 'on'
+
 # Window mode can be turned on so that the default layout
 # Has all the windows listed rather than sessions only
-set -g @sessionx-window-mode 'on'
+set -g @sessionx-window-mode 'off'
 
-set-environment -g PATH "/opt/homebrew/bin:/bin:/usr/bin"
+# If you want to change the prompt, the space is nedded to not overlap the icon
+set -g @sessionx-prompt " "
 
-# -- custom variables ----------------------------------------------------------
-
-# to define a custom #{foo} variable, define a POSIX shell function between the
-# '# EOF' and the '# "$@"' lines. Please note that the opening brace { character
-# must be on the same line as the function name otherwise the parse won't detect
-# it.
-#
-# then, use #{foo} in e.g. the 'tmux_conf_theme_status_left' or the
-# 'tmux_conf_theme_status_right' variables.
-
-# ------------------------------------------------------------------------------
-
-# # /!\ do not remove the following line
-# EOF
-#
-# # /!\ do not "uncomment" the functions: the leading "# " characters are needed
-#
-# weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
-#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
-#   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
-# }
-#
-# online() {
-#   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
-# }
-#
-# wan_ip_v4() {
-#   curl -f -s -m 2 -4 ifconfig.me
-#   sleep 300                                         # sleep for 5 minutes, throttle network requests whatever the value of status-interval
-# }
-#
-# wan_ip_v6() {
-#   curl -f -s -m 2 -6 ifconfig.me
-#   sleep 300                                         # sleep for 5 minutes, throttle network requests whatever the value of status-interval
-# }
-#
-# "$@"
-# # /!\ do not remove the previous line
-# #     do not write below this line
+# If you want to change the pointer
+set -g @sessionx-pointer "▶ "

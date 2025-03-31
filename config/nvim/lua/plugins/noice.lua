@@ -17,7 +17,8 @@ return {
       },
       presets = {
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
+        -- inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
+        inc_rename = false,
       },
       views = {
         cmdline_popup = {
@@ -142,7 +143,7 @@ return {
       opts = {
         plugins = {
           noice = true,
-          telescope = true,
+          telescope = false,
           treesitter = true,
           notify = true,
           cmp = true,
