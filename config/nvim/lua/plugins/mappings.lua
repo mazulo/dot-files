@@ -3,13 +3,9 @@ return {
     "AstroNvim/astrocore",
     opts = {
       mappings = {
-        -- first key is the mode
         n = {
-          -- navigate buffer tabs with `H` and `L`
           ["<A-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
           ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-          -- second key is the lefthand side of the map
-          -- mappings seen under group name "Buffer"
           ["<Leader>b"] = { desc = "Buffers" },
           ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
           ["<Leader>bD"] = {
@@ -21,25 +17,12 @@ return {
             desc = "Pick to close",
           },
           ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
-          ["<D-v>"] = { "<Leader>p" },
-
           -- LSP mappings
-          gd = function() require("telescope.builtin").lsp_definitions { reuse_win = false } end,
+          gd = function() require("telescope.builtin").lsp_definitions { reuse_win = true } end,
           gI = function() require("telescope.builtin").lsp_implementations { reuse_win = true } end,
           gr = function() require("telescope.builtin").lsp_references() end,
           gy = function() require("telescope.builtin").lsp_type_definitions { reuse_win = true } end,
-          ["<Leader>lG"] = function()
-            vim.ui.input({ prompt = "Symbol Query: (leave empty for word under cursor)" }, function(query)
-              if query then
-                -- word under cursor if given query is empty
-                if query == "" then query = vim.fn.expand "<cword>" end
-                require("telescope.builtin").lsp_workspace_symbols {
-                  query = query,
-                  prompt_title = ("Find word (%s)"):format(query),
-                }
-              end
-            end)
-          end,
+
           ["<Leader>lR"] = function() require("telescope.builtin").lsp_references() end,
           ["<leader>fG"] = {
             function() require("telescope").extensions.live_grep_args.live_grep_args() end,
@@ -54,10 +37,10 @@ return {
           Y = { '"+y$' },
         },
         v = {
-          ["<D-v>"] = { "<Leader>p" },
-          p = { '"_' },
+          x = { '"_x' },
           d = { '"_d' },
-          v = { '"_' },
+          D = { '"_D' },
+          y = { '"+y' },
         },
       },
     },

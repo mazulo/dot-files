@@ -9,12 +9,16 @@ return {
     "AvanteEdit",
     "AvanteRefresh",
     "AvanteSwitchProvider",
+    "AvanteShowRepoMap",
+    "AvanteModels",
     "AvanteChat",
     "AvanteToggle",
     "AvanteClear",
+    "AvanteFocus",
+    "AvanteStop",
   },
   dependencies = {
-    "stevearc/dressing.nvim",
+    { "stevearc/dressing.nvim", optional = true },
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     { "AstroNvim/astrocore", opts = function(_, opts) opts.mappings.n[prefix] = { desc = " Avante" } end },
@@ -43,6 +47,24 @@ return {
   },
   specs = { -- configure optional plugins
     { "AstroNvim/astroui", opts = { icons = { Avante = "" } } },
+    {
+      "Kaiser-Yang/blink-cmp-avante",
+      lazy = true,
+      specs = {
+        {
+          "Saghen/blink.cmp",
+          optional = true,
+          opts = {
+            sources = {
+              default = { "avante" },
+              providers = {
+                avante = { module = "blink-cmp-avante", name = "Avante" },
+              },
+            },
+          },
+        },
+      },
+    },
     { -- if copilot.lua is available, default to copilot provider
       "zbirenbaum/copilot.lua",
       optional = true,
@@ -50,8 +72,8 @@ return {
         {
           "yetone/avante.nvim",
           opts = {
-            auto_suggestions_provider = "copilot",
             provider = "copilot",
+            auto_suggestions_provider = "copilot",
           },
         },
       },
@@ -66,13 +88,18 @@ return {
       end,
     },
     {
-      -- make sure `Avante` is added as a filetype
-      "OXY2DEV/markview.nvim",
+      "folke/snacks.nvim",
       optional = true,
-      opts = function(_, opts)
-        if not opts.filetypes then opts.filetypes = { "markdown", "quarto", "rmd" } end
-        opts.filetypes = require("astrocore").list_insert_unique(opts.filetypes, { "Avante" })
-      end,
+      specs = {
+        {
+          "yetone/avante.nvim",
+          opts = {
+            selector = {
+              provider = "snacks",
+            },
+          },
+        },
+      },
     },
     {
       "nvim-neo-tree/neo-tree.nvim",

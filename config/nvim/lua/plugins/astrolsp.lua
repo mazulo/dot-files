@@ -3,16 +3,14 @@ return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
   opts = {
-    setup_handlers = {},
     features = {
-      autoformat = false,
-      codelens = true,
-      inlay_hints = false,
-      semantic_tokens = true,
+      codelens = true, -- enable/disable codelens refresh on start
+      inlay_hints = false, -- enable/disable inlay hints on start
+      semantic_tokens = true, -- enable/disable semantic token highlighting
     },
     formatting = {
       format_on_save = {
-        enabled = true,
+        enabled = true, -- enable or disable format on save globally
         allow_filetypes = {
           "lua",
         },
@@ -24,6 +22,7 @@ return {
       timeout_ms = 1000,
     },
     servers = {},
+    -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
       yamlls = {
@@ -47,6 +46,31 @@ return {
             },
             schemas = {
               kubernetes = "/*.yaml",
+            },
+          },
+        },
+      },
+      basedpyright = {
+        before_init = function(_, c)
+          if not c.settings then c.settings = {} end
+          if not c.settings.python then c.settings.python = {} end
+          c.settings.python.pythonPath = vim.fn.exepath "python"
+        end,
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoImportCompletions = true,
+              stubPath = vim.env.HOME .. "/typings",
+              diagnosticSeverityOverrides = {
+                reportUnusedImport = "information",
+                reportUnusedFunction = "information",
+                reportUnusedVariable = "information",
+                reportGeneralTypeIssues = "none",
+                reportOptionalMemberAccess = "none",
+                reportOptionalSubscript = "none",
+                reportPrivateImportUsage = "none",
+              },
             },
           },
         },
@@ -84,6 +108,13 @@ return {
           function() vim.lsp.buf.declaration() end,
           desc = "Declaration of current symbol",
           cond = "textDocument/declaration",
+        },
+        ["<Leader>uY"] = {
+          function() require("astrolsp.toggles").buffer_semantic_tokens() end,
+          desc = "Toggle LSP semantic highlight (buffer)",
+          cond = function(client)
+            return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens ~= nil
+          end,
         },
         gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
         x = { '"_x' },

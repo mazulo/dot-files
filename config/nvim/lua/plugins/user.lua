@@ -4,34 +4,36 @@ return {
   -- == Examples of Adding Plugins ==
 
   "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function() require("lsp_signature").setup() end,
-  -- },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function() require("lsp_signature").setup() end,
+  },
 
   -- == Examples of Overriding Plugins ==
 
-  -- customize alpha options
+  -- customize dashboard options
   {
-    "goolord/alpha-nvim",
-    opts = function(_, opts)
-      -- customize the dashboard header
-      opts.section.header.val = {
-        " █████  ███████ ████████ ██████   ██████",
-        "██   ██ ██         ██    ██   ██ ██    ██",
-        "███████ ███████    ██    ██████  ██    ██",
-        "██   ██      ██    ██    ██   ██ ██    ██",
-        "██   ██ ███████    ██    ██   ██  ██████",
-        " ",
-        "    ███    ██ ██    ██ ██ ███    ███",
-        "    ████   ██ ██    ██ ██ ████  ████",
-        "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
-        "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
-        "    ██   ████   ████   ██ ██      ██",
-      }
-      return opts
-    end,
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = table.concat({
+            " █████  ███████ ████████ ██████   ██████ ",
+            "██   ██ ██         ██    ██   ██ ██    ██",
+            "███████ ███████    ██    ██████  ██    ██",
+            "██   ██      ██    ██    ██   ██ ██    ██",
+            "██   ██ ███████    ██    ██   ██  ██████ ",
+            "",
+            "███    ██ ██    ██ ██ ███    ███",
+            "████   ██ ██    ██ ██ ████  ████",
+            "██ ██  ██ ██    ██ ██ ██ ████ ██",
+            "██  ██ ██  ██  ██  ██ ██  ██  ██",
+            "██   ████   ████   ██ ██      ██",
+          }, "\n"),
+        },
+      },
+    },
   },
 
   -- You can disable default plugins as follows:
@@ -47,6 +49,7 @@ return {
       luasnip.filetype_extend("javascript", { "javascriptreact" })
     end,
   },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
@@ -205,21 +208,6 @@ return {
         },
         show_unloaded = true,
       },
-      window = {
-        position = "left", -- left, right, top, bottom, float, current
-        width = 35, -- applies to left and right positions
-        height = 15, -- applies to top and bottom positions
-        auto_expand_width = false, -- expand the window when file exceeds the window width. does not work with position = "float"
-        popup = { -- settings that apply to float position only
-          size = {
-            height = "80%",
-            width = "50%",
-          },
-          position = "50%", -- 50% means center it
-          -- you can also specify border here, if you want a different setting from
-          -- the global popup_border_style.
-        },
-      },
       git_status = {
         window = {
           position = "float",
@@ -228,7 +216,7 @@ return {
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      -- "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
       {
         "s1n7ax/nvim-window-picker",
@@ -280,6 +268,7 @@ return {
       },
     },
   },
+
   {
     "towolf/vim-helm",
     ft = "helm",
@@ -300,5 +289,35 @@ return {
     "overleaf/vim-env-syntax",
     ft = "env",
     enabled = true,
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    config = function(plugin, opts)
+      require "astronvim.plugins.configs.nvim-autopairs"(plugin, opts) -- include the default astronvim config that calls the setup call
+      -- add more custom autopairs configuration such as custom rules
+      local npairs = require "nvim-autopairs"
+      local Rule = require "nvim-autopairs.rule"
+      local cond = require "nvim-autopairs.conds"
+      npairs.add_rules(
+        {
+          Rule("$", "$", { "tex", "latex" })
+            -- don't add a pair if the next character is %
+            :with_pair(cond.not_after_regex "%%")
+            -- don't add a pair if  the previous character is xxx
+            :with_pair(
+              cond.not_before_regex("xxx", 3)
+            )
+            -- don't move right when repeat character
+            :with_move(cond.none())
+            -- don't delete if the next character is xx
+            :with_del(cond.not_after_regex "xx")
+            -- disable adding a newline when you press <cr>
+            :with_cr(cond.none()),
+        },
+        -- disable for .vim files, but it work for another filetypes
+        Rule("a", "a", "-vim")
+      )
+    end,
   },
 }
