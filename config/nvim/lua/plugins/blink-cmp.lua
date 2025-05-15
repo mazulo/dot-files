@@ -1,7 +1,6 @@
 return {
   "Saghen/blink.cmp",
   specs = {
-    -- install the blink, nvim-cmp compatibility layer
     { "Saghen/blink.compat", version = "*", lazy = true, opts = {} },
   },
   opts = {
@@ -24,14 +23,12 @@ return {
                 local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
                 return kind_icon
               end,
-              -- (optional) use highlights from mini.icons
               highlight = function(ctx)
                 local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                 return hl
               end,
             },
             kind = {
-              -- (optional) use highlights from mini.icons
               highlight = function(ctx)
                 local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
                 return hl

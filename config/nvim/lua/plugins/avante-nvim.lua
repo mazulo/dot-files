@@ -2,7 +2,7 @@ local prefix = "<Leader>A"
 return {
   "yetone/avante.nvim",
   build = "make",
-  event = "User AstroFile", -- load on file open because Avante manages it's own bindings
+  event = "User AstroFile",
   cmd = {
     "AvanteAsk",
     "AvanteBuild",
@@ -45,7 +45,7 @@ return {
       },
     },
   },
-  specs = { -- configure optional plugins
+  specs = {
     { "AstroNvim/astroui", opts = { icons = { Avante = "" } } },
     {
       "Kaiser-Yang/blink-cmp-avante",
@@ -65,7 +65,7 @@ return {
         },
       },
     },
-    { -- if copilot.lua is available, default to copilot provider
+    {
       "zbirenbaum/copilot.lua",
       optional = true,
       specs = {
@@ -79,7 +79,6 @@ return {
       },
     },
     {
-      -- make sure `Avante` is added as a filetype
       "MeanderingProgrammer/render-markdown.nvim",
       optional = true,
       opts = function(_, opts)
@@ -115,7 +114,6 @@ return {
               local sidebar = require("avante").get()
 
               local open = sidebar:is_open()
-              -- ensure avante sidebar is open
               if not open then
                 require("avante.api").ask()
                 sidebar = require("avante").get()
@@ -123,7 +121,6 @@ return {
 
               sidebar.file_selector:add_selected_file(relative_path)
 
-              -- remove neo tree buffer
               if not open then sidebar.file_selector:remove_selected_file "neo-tree filesystem [1]" end
             end,
           },

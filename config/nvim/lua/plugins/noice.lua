@@ -8,7 +8,6 @@ return {
     local utils = require "astrocore"
     return utils.extend_tbl(opts, {
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -16,12 +15,12 @@ return {
         },
       },
       presets = {
-        long_message_to_split = true, -- long messages will be sent to a split
+        long_message_to_split = true,
         -- inc_rename = false,
-        inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        inc_rename = utils.is_available "inc-rename.nvim",
+        bottom_search = true,
+        command_palette = true,
+        lsp_doc_border = false,
       },
       views = {
         cmdline_popup = {
@@ -61,30 +60,29 @@ return {
         },
       },
       popupmenu = {
-        -- relative = 'editor', -- "'cursor'"|"'editor'"|"'win'"
         position = {
-          row = "auto", -- Popup will show up below the cmdline automatically
+          row = "auto",
           col = "auto",
         },
         size = {
-          width = 120, -- Making this as wide as the cmdline_popup
+          width = 120,
           height = "auto",
         },
         border = {
-          style = "double", -- 'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'
+          style = "double",
           padding = { 0, 1 },
         },
         win_options = {
           winhighlight = {
-            Normal = "NoicePopupmenu", -- Normal | NoicePopupmenu
-            FloatBorder = "NoicePopupmenuBorder", -- DiagnosticInfo | NoicePopupmenuBorder
+            Normal = "NoicePopupmenu",
+            FloatBorder = "NoicePopupmenuBorder",
             CursorLine = "NoicePopupmenuSelected",
             PmenuMatch = "NoicePopupmenuMatch",
           },
         },
       },
       cmdline = {
-        view = "cmdline_popup", -- cmdline_popup, cmdline
+        view = "cmdline_popup",
       },
     })
   end,
@@ -106,7 +104,6 @@ return {
       ---@param opts AstroLSPOpts
       opts = function(_, opts)
         local noice_opts = require("astrocore").plugin_opts "noice.nvim"
-        -- disable the necessary handlers in AstroLSP
         if not opts.lsp_handlers then opts.lsp_handlers = {} end
         if vim.tbl_get(noice_opts, "lsp", "hover", "enabled") ~= false then
           opts.lsp_handlers["textDocument/hover"] = false

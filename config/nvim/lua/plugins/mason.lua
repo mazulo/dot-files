@@ -16,16 +16,13 @@ return {
         "taplo",
         "typescript-language-server",
         "yaml-language-server",
-
         -- install formatters and linters
         "stylua",
         "prettier",
         "mypy",
         "isort",
-
         -- install debuggers
         "debugpy",
-
         -- install any other package
         "tree-sitter-cli",
       },
