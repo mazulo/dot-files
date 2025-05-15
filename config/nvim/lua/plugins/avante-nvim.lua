@@ -1,8 +1,7 @@
 local prefix = "<Leader>A"
 return {
   "yetone/avante.nvim",
-  build = vim.fn.has "win32" == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-    or "make",
+  build = "make",
   event = "User AstroFile", -- load on file open because Avante manages it's own bindings
   cmd = {
     "AvanteAsk",
@@ -36,11 +35,6 @@ return {
       diff = {
         next = "]c",
         prev = "[c",
-        ours = prefix .. "co",
-        theirs = prefix .. "ct",
-        all_theirs = prefix .. "ca",
-        both = prefix .. "cb",
-        cursor = prefix .. "cc",
       },
       files = {
         add_current = prefix .. ".",
@@ -56,34 +50,7 @@ return {
         {
           "yetone/avante.nvim",
           opts = {
-            -- provider = "copilot",
             auto_suggestions_provider = "copilot",
-            -- provider = "claude", -- Recommend using Claude
-            -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-            -- claude = {
-            --   endpoint = "https://api.anthropic.com",
-            --   model = "claude-3-5-sonnet-20241022",
-            --   temperature = 0,
-            --   max_tokens = 4096,
-            -- },
-            -- provider = "openai",
-            -- openai = {
-            --   endpoint = "https://api.openai.com/v1",
-            --   model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-            --   timeout = 30000, -- timeout in milliseconds
-            --   temperature = 0, -- adjust if needed
-            --   max_tokens = 4096,
-            --   -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
-            -- },
-            -- provider = "deepseek",
-            -- vendors = {
-            --   deepseek = {
-            --     __inherited_from = "openai",
-            --     api_key_name = "DEEPSEEK_API_KEY",
-            --     endpoint = "https://api.deepseek.com",
-            --     model = "deepseek-coder",
-            --   },
-            -- },
             provider = "copilot",
           },
         },
@@ -106,6 +73,40 @@ return {
         if not opts.filetypes then opts.filetypes = { "markdown", "quarto", "rmd" } end
         opts.filetypes = require("astrocore").list_insert_unique(opts.filetypes, { "Avante" })
       end,
+    },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      optional = true,
+      opts = {
+        filesystem = {
+          commands = {
+            avante_add_files = function(state)
+              local node = state.tree:get_node()
+              local filepath = node:get_id()
+              local relative_path = require("avante.utils").relative_path(filepath)
+
+              local sidebar = require("avante").get()
+
+              local open = sidebar:is_open()
+              -- ensure avante sidebar is open
+              if not open then
+                require("avante.api").ask()
+                sidebar = require("avante").get()
+              end
+
+              sidebar.file_selector:add_selected_file(relative_path)
+
+              -- remove neo tree buffer
+              if not open then sidebar.file_selector:remove_selected_file "neo-tree filesystem [1]" end
+            end,
+          },
+        },
+        window = {
+          mappings = {
+            ["oa"] = "avante_add_files",
+          },
+        },
+      },
     },
   },
 }

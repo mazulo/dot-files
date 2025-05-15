@@ -8,6 +8,7 @@ return {
     config.sources = {
       require "none-ls.formatting.ruff",
       require "none-ls.formatting.ruff_format",
+      require "null-ls.builtins.diagnostics.mypy",
     }
     return config
   end,

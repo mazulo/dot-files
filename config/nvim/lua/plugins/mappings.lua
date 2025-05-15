@@ -6,12 +6,8 @@ return {
         -- first key is the mode
         n = {
           -- navigate buffer tabs with `H` and `L`
-          -- ["<A-Tab>"] = { function() vim.cmd ":bnext" end, desc = "Next buffer" },
-          -- ["<S-Tab>"] = { function() vim.cmd ":bprevious" end, desc = "Previous buffer" },
           ["<A-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
           ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-          -- ["<A-Tab>"] = { "<cmd>]b<cr>", desc = "Next tab" },
-          -- ["<S-Tab>"] = { "<cmd>[b<cr>", desc = "Previous tab" },
           -- second key is the lefthand side of the map
           -- mappings seen under group name "Buffer"
           ["<Leader>b"] = { desc = "Buffers" },
@@ -24,7 +20,6 @@ return {
             end,
             desc = "Pick to close",
           },
-
           ["<C-s>"] = { ":w!<cr>", desc = "Save changes to the file in the current buffer" }, -- change description but the same command
           ["<D-v>"] = { "<Leader>p" },
 
@@ -48,27 +43,21 @@ return {
           ["<Leader>lR"] = function() require("telescope.builtin").lsp_references() end,
           ["<leader>fG"] = {
             function() require("telescope").extensions.live_grep_args.live_grep_args() end,
-            desc = "Live grep",
+            desc = "Live grep with args",
           },
-          -- -- mappings related to the behavior of cutting/deleting/pasting
-          -- x = { '"_x' },
-          -- dd = { '"_dd' },
-          -- D = { '"_D' },
-          -- p = { '"_dP' },
-          -- y = { '"+y' },
-          -- Y = { '"+y$' },
-          -- s = { '"_s' },
-          -- v = { '"_v' },
+          -- mappings related to the behavior of cutting/deleting/pasting
+          x = { '"_x' },
+          d = { '"_d' },
+          D = { '"_D' },
+          p = { '"_dP' },
+          y = { '"+y' },
+          Y = { '"+y$' },
         },
         v = {
           ["<D-v>"] = { "<Leader>p" },
           p = { '"_' },
-          --   x = { '"_x' },
           d = { '"_d' },
-          --   D = { '"_D' },
-          --   y = { '"+y' },
           v = { '"_' },
-          --   s = { '"_s' },
         },
       },
     },

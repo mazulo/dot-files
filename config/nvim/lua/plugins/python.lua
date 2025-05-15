@@ -79,7 +79,6 @@ return {
         function(v) return not vim.tbl_contains({ "black", "isort" }, v) end,
         opts.ensure_installed
       )
-      opts.auto_update = true
     end,
   },
   {

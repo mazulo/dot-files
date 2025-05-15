@@ -296,5 +296,9 @@ return {
       }
     end,
   },
-  { "overleaf/vim-env-syntax", enabled = true },
+  {
+    "overleaf/vim-env-syntax",
+    ft = "env",
+    enabled = true,
+  },
 }

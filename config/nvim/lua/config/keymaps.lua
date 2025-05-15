@@ -1,0 +1,7 @@
+vim.keymap.del("n", "gc")
+vim.keymap.del("n", "gco")
+vim.keymap.del("n", "gcA")
+vim.keymap.del("n", "gr")
+vim.keymap.del("n", "gcc")
+vim.keymap.del("n", "gb")
+vim.keymap.del("n", "gcO")

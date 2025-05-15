@@ -3,6 +3,7 @@ return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
   opts = {
+    setup_handlers = {},
     features = {
       autoformat = false,
       codelens = true,
@@ -24,7 +25,33 @@ return {
     },
     servers = {},
     ---@diagnostic disable: missing-fields
-    config = {},
+    config = {
+      yamlls = {
+        on_new_config = function(config)
+          config.settings.yaml.schemas =
+            vim.tbl_deep_extend("force", config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
+        end,
+        capabilities = {
+          textDocument = {
+            foldingRange = {
+              dynamicRegistration = false,
+              lineFoldingOnly = true,
+            },
+          },
+        },
+        settings = {
+          yaml = {
+            schemaStore = {
+              enable = false,
+              url = "",
+            },
+            schemas = {
+              kubernetes = "/*.yaml",
+            },
+          },
+        },
+      },
+    },
     handlers = {},
     autocmds = {
       lsp_document_highlight = {
@@ -74,7 +101,7 @@ return {
       },
     },
   },
-  -- on_attach = function(client, _)
-  --   if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
-  -- end,
+  on_attach = function(client, _)
+    -- if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
+  end,
 }
