@@ -1,9 +1,13 @@
 return {
   "Saghen/blink.cmp",
+  dependencies = { "rafamadriz/friendly-snippets" },
   specs = {
     { "Saghen/blink.compat", version = "*", lazy = true, opts = {} },
   },
   opts = {
+    keymap = {
+      ["<Tab>"] = { "snippet_forward", "fallback" },
+    },
     sources = {
       default = { "lsp", "buffer", "path", "snippets" },
       providers = {
@@ -36,6 +40,10 @@ return {
             },
           },
         },
+      },
+      trigger = {
+        prefetch_on_insert = true,
+        show_on_trigger_character = true,
       },
     },
   },

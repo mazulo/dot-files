@@ -1,11 +1,3 @@
--- return {
---   {
---     "mg979/vim-visual-multi",
---     name = "vim-visual-multi",
---     branch = "master",
---   },
--- }
-
 return {
   "mg979/vim-visual-multi",
   event = { "User AstroFile", "InsertEnter" },

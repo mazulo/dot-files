@@ -6,7 +6,6 @@ return {
     local utils = require "astrocore"
     return utils.extend_tbl(opts, {
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -14,11 +13,11 @@ return {
         },
       },
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = utils.is_available "inc-rename.nvim", -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = utils.is_available "inc-rename.nvim",
+        lsp_doc_border = false,
       },
       views = {
         cmdline_popup = {
@@ -58,30 +57,29 @@ return {
         },
       },
       popupmenu = {
-        -- relative = 'editor', -- "'cursor'"|"'editor'"|"'win'"
         position = {
-          row = "auto", -- Popup will show up below the cmdline automatically
+          row = "auto",
           col = "auto",
         },
         size = {
-          width = 120, -- Making this as wide as the cmdline_popup
+          width = 120,
           height = "auto",
         },
         border = {
-          style = "double", -- 'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'
+          style = "double",
           padding = { 0, 1 },
         },
         win_options = {
           winhighlight = {
-            Normal = "NoicePopupmenu", -- Normal | NoicePopupmenu
-            FloatBorder = "NoicePopupmenuBorder", -- DiagnosticInfo | NoicePopupmenuBorder
+            Normal = "NoicePopupmenu",
+            FloatBorder = "NoicePopupmenuBorder",
             CursorLine = "NoicePopupmenuSelected",
             PmenuMatch = "NoicePopupmenuMatch",
           },
         },
       },
       cmdline = {
-        view = "cmdline_popup", -- cmdline_popup, cmdline
+        view = "cmdline_popup",
       },
     })
   end,
@@ -143,10 +141,7 @@ return {
       opts = {
         plugins = {
           noice = true,
-          telescope = true,
-          treesitter = true,
-          notify = true,
-          cmp = true,
+          snacks = true,
         },
       },
     },
@@ -155,7 +150,7 @@ return {
       optional = true,
       opts = function(_, opts)
         local noice_opts = require("astrocore").plugin_opts "noice.nvim"
-        if vim.tbl_get(noice_opts, "lsp", "progress", "enabled") ~= false then -- check if lsp progress is enabled
+        if vim.tbl_get(noice_opts, "lsp", "progress", "enabled") ~= false then
           opts.statusline[9] = require("astroui.status").component.lsp { lsp_progress = false }
         end
       end,

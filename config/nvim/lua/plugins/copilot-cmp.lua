@@ -22,45 +22,32 @@ return {
     {
       "zbirenbaum/copilot.lua",
       opts = {
-        suggestion = { enabled = false },
+        suggestion = {
+          enabled = false,
+          keymap = {
+            accept = "<CR>",
+            accept_word = true,
+            accept_line = true,
+            next = "<C-x>",
+            prev = "<C-z>",
+            dismiss = "<C-c>",
+          },
+        },
         panel = { enabled = false },
+        server_opts_overrides = {
+          trace = "verbose",
+          settings = {
+            advanced = {
+              listCount = 5,
+              inlineSuggestCount = 4,
+            },
+          },
+        },
       },
     },
   },
   specs = {
     { import = "astrocommunity.completion.copilot-lua" },
-    {
-      "hrsh7th/nvim-cmp",
-      optional = true,
-      dependencies = { "zbirenbaum/copilot-cmp" },
-      opts = function(_, opts)
-        local cmp, copilot = require "cmp", require "copilot.suggestion"
-        local snip_status_ok, luasnip = pcall(require, "luasnip")
-        if not snip_status_ok then return end
-        if not opts.mapping then opts.mapping = {} end
-        opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
-          if copilot.is_visible() then
-            copilot.accept()
-          elseif cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { "i", "s" })
-
-        opts.mapping["<C-X>"] = cmp.mapping(copilot_action "next")
-        opts.mapping["<C-Z>"] = cmp.mapping(copilot_action "prev")
-        opts.mapping["<C-CR>"] = cmp.mapping(copilot_action "accept_word")
-        opts.mapping["<C-L>"] = cmp.mapping(copilot_action "accept_word")
-        opts.mapping["<C-Down>"] = cmp.mapping(copilot_action "accept_line")
-        opts.mapping["<C-J>"] = cmp.mapping(copilot_action "accept_line")
-        opts.mapping["<C-C>"] = cmp.mapping(copilot_action "dismiss")
-      end,
-    },
     {
       "Saghen/blink.cmp",
       optional = true,

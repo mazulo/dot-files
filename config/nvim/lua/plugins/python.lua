@@ -35,6 +35,19 @@ return {
     },
   },
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.ensure_installed =
+        require("astrocore").list_insert_unique(opts.ensure_installed, { "basedpyright", "ruff", "debugpy" })
+      opts.ensure_installed = vim.tbl_filter(
+        function(v) return not vim.tbl_contains({ "black", "isort" }, v) end,
+        opts.ensure_installed
+      )
+      opts.auto_update = true
+    end,
+  },
+  {
     "stevearc/conform.nvim",
     optional = true,
     opts = {
