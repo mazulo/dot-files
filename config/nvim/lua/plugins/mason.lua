@@ -9,7 +9,6 @@ return {
         -- install language servers
         "lua-language-server",
         "cmake-language-server",
-        "basedpyright",
         "bash-language-server",
         "eslint-lsp",
         "ruff",
@@ -20,7 +19,6 @@ return {
         "stylua",
         "prettier",
         "mypy",
-        "isort",
         -- install debuggers
         "debugpy",
         -- install any other package

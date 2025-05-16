@@ -9,3 +9,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile", "BufRead" }, {
   group = group,
   callback = function() vim.bo.filetype = "env" end,
 })
+-- Automate Python venv selection
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   desc = "Auto select virtualenv Nvim open",
+--   pattern = "*",
+--   callback = function()
+--     local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+--     if venv ~= "" then require("venv-selector").retrieve_from_cache() end
+--   end,
+--   once = true,
+-- })

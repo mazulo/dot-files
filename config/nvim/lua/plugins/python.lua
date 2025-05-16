@@ -12,12 +12,23 @@ return {
             if not c.settings.python then c.settings.python = {} end
             c.settings.python.pythonPath = vim.fn.exepath "python"
           end,
+          root_markers = {
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            "Pipfile",
+            "pyrightconfig.json",
+            ".git",
+          },
           settings = {
             basedpyright = {
               analysis = {
-                typeCheckingMode = "basic",
                 autoImportCompletions = true,
-                stubPath = vim.env.HOME .. "/typings",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "openFilesOnly",
+                typeCheckingMode = "off",
                 diagnosticSeverityOverrides = {
                   reportUnusedImport = "information",
                   reportUnusedFunction = "information",
@@ -35,32 +46,12 @@ return {
     },
   },
   {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.ensure_installed =
-        require("astrocore").list_insert_unique(opts.ensure_installed, { "basedpyright", "ruff", "debugpy" })
-      opts.ensure_installed = vim.tbl_filter(
-        function(v) return not vim.tbl_contains({ "black", "isort" }, v) end,
-        opts.ensure_installed
-      )
-      opts.auto_update = true
-    end,
-  },
-  {
-    "stevearc/conform.nvim",
-    optional = true,
-    opts = {
-      formatters_by_ft = {
-        python = { "ruff_organize_imports", "ruff_format", "ruff_fix" },
-      },
-    },
-  },
-  {
     "linux-cultist/venv-selector.nvim",
     branch = "regexp",
+    event = { "User AstroFile", "LspAttach" },
     dependencies = {
-      { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+      "nvim-telescope/telescope.nvim",
+      "neovim/nvim-lspconfig",
       {
         "AstroNvim/astrocore",
         opts = {
@@ -72,7 +63,16 @@ return {
         },
       },
     },
-    opts = {},
+    config = function()
+      local venv_selector_hooks = require "venv-selector.hooks"
+      require("venv-selector").setup {
+        changed_venv_hooks = { venv_selector_hooks.basedpyright_hook },
+        enable_debug_output = true,
+        enable_cached_venvs = true,
+        notify_user_on_venv_activation = true,
+        debug = true,
+      }
+    end,
     cmd = "VenvSelect",
   },
 }
