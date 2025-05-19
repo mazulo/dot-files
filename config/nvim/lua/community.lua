@@ -1,29 +1,17 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  -- { import = "astrocommunity.code-runner.executor-nvim" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.tokyodark-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
+  { import = "astrocommunity.completion.blink-cmp" },
   { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
-  -- { import = "astrocommunity.pack.bash" },
-  -- { import = "astrocommunity.pack.docker" },
-  -- { import = "astrocommunity.pack.html-css", enabled = false },
-  -- { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
-  -- { import = "astrocommunity.pack.markdown" },
-  -- { import = "astrocommunity.pack.python-ruff", enabled = false },
-  -- { import = "astrocommunity.pack.rust" },
-  -- { import = "astrocommunity.pack.toml" },
-  -- { import = "astrocommunity.pack.typescript-all-in-one" },
-  -- { import = "astrocommunity.pack.yaml" },
-  -- { import = "astrocommunity.programming-language-support.csv-vim" },
-  -- { import = "astrocommunity.search.nvim-spectre" },
   {
     import = "astrocommunity.editing-support.ultimate-autopair-nvim",
     opts = {
-      internal_pairs = { -- *ultimate-autopair-pairs-default-pairs*
+      internal_pairs = {
         { "[", "]", fly = true, dosuround = true, newline = true, space = true },
         { "(", ")", fly = true, dosuround = true, newline = true, space = true },
         { "{", "}", fly = true, dosuround = true, newline = true, space = true },
