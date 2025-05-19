@@ -19,8 +19,6 @@ return {
         "stylua",
         "prettier",
         "mypy",
-        -- install debuggers
-        "debugpy",
         -- install any other package
         "tree-sitter-cli",
       },
