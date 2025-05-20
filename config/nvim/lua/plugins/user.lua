@@ -42,6 +42,7 @@ return {
           height = 0.9,
           width = 0.9,
           zindex = 50,
+          relative = "editor",
         },
       },
       terminal = {
@@ -55,7 +56,7 @@ return {
           gf = function(self)
             local f = vim.fn.findfile(vim.fn.expand "<cfile>", "**")
             if f == "" then
-              Snacks.notify.warn "No file under cursor"
+              require("snacks").notify.warn "No file under cursor"
             else
               self:hide()
               vim.schedule(function() vim.cmd("e " .. f) end)
@@ -103,6 +104,42 @@ return {
           frecency = false, -- frecency bonus
           history_bonus = false, -- give more weight to chronological order
         },
+        sort = {
+          -- default sort is by score, text length and index
+          fields = { "score:desc", "#text", "idx" },
+        },
+        ui_select = true,
+        previewers = {
+          diff = {
+            builtin = true, -- use Neovim for previewing diffs (true) or use an external tool (false)
+            cmd = { "delta" }, -- example to show a diff with delta
+          },
+          git = {
+            builtin = true, -- use Neovim for previewing git output (true) or use git (false)
+            args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
+          },
+          file = {
+            max_size = 1024 * 256,
+            max_line_length = nil,
+            ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
+          },
+          man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
+        },
+        ---@class snacks.picker.jump.Config
+        jump = {
+          jumplist = true, -- save the current position in the jumplist
+          tagstack = true, -- save the current position in the tagstack
+          reuse_win = false, -- reuse an existing window if the buffer is already open
+          close = false, -- close the picker when jumping/editing to a location (defaults to true)
+          match = false, -- jump to the first match position. (useful for `lines`)
+        },
+        toggles = {
+          follow = "f",
+          hidden = "h",
+          ignored = "i",
+          modified = "m",
+          regex = { icon = "R", value = false },
+        },
         cliphist = {
           finder = "system_cliphist",
           format = "text",
@@ -119,6 +156,18 @@ return {
           sort = { fields = { "sort" } },
           supports_live = true,
           watch = true,
+          focus = "list",
+          jump = { close = false },
+          layout = { preset = "sidebar", preview = false },
+          -- to show the explorer to the right, add the below to
+          -- your config under `opts.picker.sources.explorer`
+          -- layout = { layout = { position = "right" } },
+          formatters = {
+            file = { filename_only = true },
+            severity = { pos = "right" },
+          },
+          matcher = { sort_empty = false, fuzzy = false },
+          config = function(opts) return require("snacks.picker.source.explorer").setup(opts) end,
         },
         grep = {
           finder = "grep",
