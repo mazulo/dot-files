@@ -1,17 +1,12 @@
-# source $ZSH/oh-my-zsh.sh
-
 # Starship
 eval "$(starship init zsh)"
 
 eval "$(brew shellenv)"
-# fpath="$(brew --prefix)/share/zsh/site-functions $fpath)"
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-autoload -Uz compinit
-compinit
 
-# Pyenv settings
+# pyenv settings
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path)"
 eval "$(pyenv init --path --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 
@@ -21,12 +16,40 @@ source $HOME/antigen.zsh
 # Load Antigen configurations
 antigen init $HOME/.antigenrc
 
+# fpath="$(brew --prefix)/share/zsh/site-functions $fpath)"
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -Uz compinit
+compinit
+source "$ZSH/oh-my-zsh.sh"
+
+# Pyenv settings
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# export PATH="$PYENV_ROOT/shims:$PATH"
+# eval "$(pyenv init - zsh)"
+# eval "$(pyenv virtualenv-init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path --no-rehash)"
+# eval "$(pyenv virtualenv-init -)"
+
+# nvm setup
+export NVM_DIR="$HOME/.nvm"
+export NVM_COMPLETION=true
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/etc/zsh_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/zsh_completion.d/nvm"  # This loads nvm zsh_completion
+
+
+
 # Load .profile
 # source $HOME/.profile
+export DISABLE_AUTO_TITLE='true'
 
 # Updating PATH
 export PATH=/usr/local/bin:$PATH
-export PATH=/Users/mazulo/.fig/bin:/Users/mazulo/.pyenv/shims:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mazulo/Downloads/
+export PATH=/Users/mazulo/.fig/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mazulo/Downloads/
 export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 # virtualenvwrapper settings
@@ -51,6 +74,10 @@ alias undo="git reset --soft HEAD^1"
 alias unstage="git reset HEAD"
 alias wip="git commit -nam 'wip'"
 alias lint=./node_modules/.bin/eslint --ext .jsx,.js --config .eslintrc.js
+alias gdev="git pull github dev --rebase --autostash"
+alias gpreprod="git pull github preprod --rebase --autostash"
+alias gsave="git stash -u"
+alias grestore="git stash pop"
 
 export LOG_LEVEL="INFO"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -85,14 +112,11 @@ export DOCKER_BUILDKIT=1
 export PATH="/usr/local/bin/nvim:$PATH"
 export PATH=/Users/mazulo/.local/bin:$PATH
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-[ -s "/opt/homebrew/opt/nvm/etc/zsh_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/zsh_completion.d/nvm"  # This loads nvm zsh_completion
-export PATH=/opt/homebrew/bin:/Users/mazulo/.local/bin:/usr/local/bin/nvim:/usr/local/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/Users/mazulo/.yarn/bin:/Users/mazulo/.config/yarn/global/node_modules/.bin:/Users/mazulo/.cargo/bin:/usr/local/opt/libxslt/bin:/usr/local/opt/libxml2/bin:/Users/mazulo/Dev/carta/carta-web/bin:/Users/mazulo/.pyenv/shims:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mazulo/Downloads/
+export PATH=/Users/mazulo/.local/bin:/usr/local/bin/nvim:/usr/local/opt/coreutils/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:/Users/mazulo/.yarn/bin:/Users/mazulo/.config/yarn/global/node_modules/.bin:/usr/local/opt/libxslt/bin:/usr/local/opt/libxml2/bin:/Users/mazulo/Dev/carta/carta-web/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mazulo/Downloads/
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/Users/mazulo/bin:$PATH"
 export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+export PATH="/opt/homebrew/bin:$PATH"  # for Apple Silicon
 
 # Aliases
 alias files='g diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
@@ -105,27 +129,18 @@ source $ZSH/oh-my-zsh.sh
 # unalias l
 # alias l="eza"
 
-
 # Shortcuts
 # alias files='git status --short | awk "{printf \"%s \", \$2}" | awk "{\$1=\$1}1"'
 # alias files='git status --short | awk "{if(\$2 ~ /\.py\$/ && \$1 != \"D\"){printf \"%s \", \$2}}" | awk "{\$1=\$1}1"'
 alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
 
 # Hatch
-. ~/.hatch-complete.zsh
+# . ~/.hatch-complete.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 # alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | tr "\n" " "'
 
 # Rye
 source "$HOME/.rye/env"
-
-# tmuxp
-export TMUXP_CONFIGDIR=./.config/tmuxp/
-
-. "$HOME/.cargo/env"
 
 # ------------ fzf config ------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -141,6 +156,29 @@ export FZF_CTRL_R_OPTS="
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+  --highlight-line \
+  --info=inline-right \
+  --ansi \
+  --layout=reverse \
+  --border=none
+  --color=bg+:#2e3c64 \
+  --color=bg:#1f2335 \
+  --color=border:#29a4bd \
+  --color=fg:#c0caf5 \
+  --color=gutter:#1f2335 \
+  --color=header:#ff9e64 \
+  --color=hl+:#2ac3de \
+  --color=hl:#2ac3de \
+  --color=info:#545c7e \
+  --color=marker:#ff007c \
+  --color=pointer:#ff007c \
+  --color=prompt:#2ac3de \
+  --color=query:#c0caf5:regular \
+  --color=scrollbar:#29a4bd \
+  --color=separator:#ff9e64 \
+  --color=spinner:#ff007c \
+"
 
 # afx config
 source <(afx completion zsh)
@@ -154,7 +192,7 @@ export TMUXP_CONFIGDIR=./.config/tmuxp/
 . "$HOME/.cargo/env"
 . "$HOME/.bin/disable.sh"
 . "$HOME/.bin/set_nvm.sh"
-. "$HOME/.bin/set_docker_compose_file.zsh"
+# . "$HOME/.bin/set_docker_compose_file.zsh"
 
 # ------------ ZSH Configuration ------------
 
@@ -164,11 +202,13 @@ bindkey '^[[A' history-search-backward
 bindkey '^p' history-search-backward
 bindkey '^[[B' history-search-forward
 bindkey '^n' history-search-forward
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
 
 # History
-HISTSIZE=10000
-SAVEHIST=$HISTSIZE
-HISTDUP=erase
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
 setopt appendhistory
 setopt sharehistory
 setopt hist_ignore_space
@@ -190,3 +230,33 @@ zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 # Aliases
 alias ls='ls --color=auto'
+
+
+# added by Servbay
+export PATH=/Applications/ServBay/bin:/Applications/ServBay/sbin:/Applications/ServBay/script:$PATH
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  # if PATH does *not* contain `~/.nix-profile/bin`
+  if [ -n "${PATH##*.nix-profile/bin*}" ]; then
+    # If this flag is set, `nix-daemon.sh` returns early
+    # https://github.com/NixOS/nix/issues/5298
+    unset __ETC_PROFILE_NIX_SOURCED
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+fi
+# End Nix
+
+# uv environment variables
+export UV_PROJECT_ENVIRONMENT=$VIRTUAL_ENV
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+echo -e '\e[>4;1m'
+
+# bun completions
+[ -s "/Users/mazulo/.bun/_bun" ] && source "/Users/mazulo/.bun/_bun"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
