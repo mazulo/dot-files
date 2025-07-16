@@ -1,6 +1,8 @@
 [core]
-    editor = lvim
     pager = delta
+    excludesFile = ~/.gitignore
+	autocrlf = false
+	editor = nvim
 
 [interactive]
     diffFilter = delta --color-only --features=interactive
@@ -19,3 +21,16 @@
     hunk-header-file-style = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+[credential]
+	helper = osxkeychain

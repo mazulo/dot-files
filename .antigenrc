@@ -14,6 +14,7 @@ antigen bundle direnv
 # Load bundles from external repos.
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
 # antigen bundle zpm-zsh/colors
 antigen bundle zpm-zsh/autoenv
 # antigen bundle zpm-zsh/ls
@@ -26,6 +27,9 @@ antigen bundle chrisands/zsh-yarn-completions
 
 export NVM_COMPLETION=true
 antigen bundle lukechilds/zsh-nvm
+antigen bundle g-plane/zsh-yarn-autocompletions
+
+antigen bundle soimort/you-get
 
 if [[ "$(uname)" =~ "Darwin" ]] ; then
     antigen bundle macos;
