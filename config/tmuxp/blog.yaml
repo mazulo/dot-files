@@ -1,0 +1,15 @@
+session_name: blog
+start_directory: /Users/mazulo/Dev/blog
+
+windows:
+  - focus: "true"
+    window_name: editor
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: nvim
+  - window_name: shell
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"

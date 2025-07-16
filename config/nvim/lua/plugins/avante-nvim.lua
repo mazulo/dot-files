@@ -18,9 +18,12 @@ return {
     "AvanteStop",
   },
   dependencies = {
+    { "stevearc/dressing.nvim" },
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     { "AstroNvim/astrocore", opts = function(_, opts) opts.mappings.n[prefix] = { desc = " Avante" } end },
+    "echasnovski/mini.pick", -- for file_selector provider mini.pick
+    "ibhagwan/fzf-lua", -- for file_selector provider fzf
   },
   opts = {
     mappings = {

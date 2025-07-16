@@ -1,0 +1,17 @@
+session_name: nvim-config
+start_directory: /Users/mazulo/.config/nvim/
+
+windows:
+- focus: 'true'
+  window_name: editor
+  layout: d0fe,314x87,0,0,1
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use stable && nvim
+- layout: d75f,489x97,0,0,2
+  window_name: servers and shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use stable

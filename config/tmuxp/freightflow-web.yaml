@@ -2,48 +2,41 @@ session_name: freightflow-web
 start_directory: /Users/mazulo/Dev/d7/freightflow/freightflow-web/
 
 windows:
-- layout: d103,314x87,0,0,6
-  window_name: editor
+- window_name: editor
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable && nvim .
-- layout: d764,489x97,0,0,7
-  window_name: server
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable
-- layout: d765,489x97,0,0,8
-  window_name: worker
+    shell_command: workon freightflow-web && nvm use stable && nvim
+- window_name: shell and tests
   options: {}
   panes:
   - focus: 'true'
     shell_command: workon freightflow-web && nvm use stable
-- layout: d766,489x97,0,0,9
-  window_name: elasticsearch
+- window_name: web server
   options: {}
   panes:
   - focus: 'true'
     shell_command: workon freightflow-web && nvm use stable
-- layout: 68af,314x87,0,0,10
-  window_name: shell
+- window_name: worker
   options: {}
   panes:
   - focus: 'true'
     shell_command: workon freightflow-web && nvm use stable
-- layout: 68b0,314x87,0,0,11
-  window_name: dot-files repo
+- window_name: elasticsearch
   options: {}
   panes:
   - focus: 'true'
-    shell_command: nvm use stable
-  start_directory: /Users/mazulo/Dev/open-source/dot-files
-- layout: 68b1,314x87,0,0,12
-  window_name: home
+    shell_command: workon freightflow-web && nvm use stable
+- window_name: home    
+  start_directory: /Users/mazulo
   suppress_history: true
   options: {}
   panes:
   - focus: 'true'
-    shell_command: nvm use stable
-  start_directory: /Users/mazulo
+    shell_command: unset HISTFILE && nvm use stable
+- start_directory: /Users/mazulo
+  suppress_history: true
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: unset HISTFILE && nvm use stable

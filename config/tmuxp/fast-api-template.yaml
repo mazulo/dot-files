@@ -8,7 +8,7 @@ windows:
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon fast-api-template && nvm use stable && nvim .
+    shell_command: workon fast-api-template && nvm use stable && nvim
 - layout: d75f,489x97,0,0,2
   window_name: servers
   options: {}

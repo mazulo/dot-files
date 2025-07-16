@@ -1,3 +1,4 @@
+vim.opt.laststatus = 3
 vim.keymap.set("n", "-", function()
   local reveal_file = vim.fn.expand "%:p"
   if reveal_file == "" then
@@ -19,3 +20,9 @@ vim.keymap.set("n", "-", function()
     reveal_force_cwd = true,
   }
 end, { desc = "Open neo-tree at current file or working directory" })
+
+-- vim.keymap.set("i", "<C-n>", function()
+--   local nldocs = require "noice.lsp.docs"
+--   local message = nldocs.get "signature"
+--   nldocs.hide(message)
+-- end)

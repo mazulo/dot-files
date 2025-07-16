@@ -2,6 +2,7 @@ return {
   "Exafunction/windsurf.nvim",
   event = "User AstroFile",
   cmd = "Codeium",
+  enabled = false,
   config = function()
     local is_cmp_available = require("astrocore").is_available
     local is_cmp_enabled = is_cmp_available "nvim-cmp" or is_cmp_available "blink.cmp"
@@ -10,6 +11,9 @@ return {
       enable_cmp_source = is_cmp_enabled,
       virtual_text = {
         enabled = not is_cmp_enabled,
+      },
+      tools = {
+        laguage_server = "/Users/mazulo/.cache/nvim/codeium/bin/1.20.10/language_server_macos_arm",
       },
     }
   end,

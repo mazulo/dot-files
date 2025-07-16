@@ -16,6 +16,7 @@ return {
         },
         ignore_filetypes = {
           "python",
+          "toml",
         },
       },
       disabled = {},
@@ -50,56 +51,66 @@ return {
         },
       },
     },
-    handlers = {},
-    autocmds = {
-      lsp_document_highlight = {
-        cond = "textDocument/documentHighlight",
-        {
-          event = { "CursorHold", "CursorHoldI" },
-          desc = "Document Highlighting",
-          callback = function() vim.lsp.buf.document_highlight() end,
-        },
-        {
-          event = { "CursorMoved", "CursorMovedI", "BufLeave" },
-          desc = "Document Highlighting Clear",
-          callback = function() vim.lsp.buf.clear_references() end,
-        },
-      },
-      lsp_codelens_refresh = {
-        cond = "textDocument/codeLens",
-        {
-          event = { "InsertLeave", "BufEnter" },
-          desc = "Refresh codelens (buffer)",
-          callback = function(args)
-            if require("astrolsp").config.features.codelens then vim.lsp.codelens.refresh { bufnr = args.buf } end
-          end,
+    taplo = {
+      capabilities = {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
         },
       },
     },
-    mappings = {
-      n = {
-        ["<Leader>uY"] = {
-          function() require("astrolsp.toggles").buffer_semantic_tokens() end,
-          desc = "Toggle LSP semantic highlight (buffer)",
-          cond = function(client)
-            return client.supports_method(vim.lsp.client, "textDocument/semanticTokens/full")
-              and vim.lsp.semantic_tokens ~= nil
-          end,
-        },
-        gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-        x = { '"_x' },
-        d = { '"_d' },
-        D = { '"_D' },
-        p = { '"_dP' },
-        y = { '"+y' },
-        Y = { '"+y$' },
+  },
+  handlers = {},
+  autocmds = {
+    lsp_document_highlight = {
+      cond = "textDocument/documentHighlight",
+      {
+        event = { "CursorHold", "CursorHoldI" },
+        desc = "Document Highlighting",
+        callback = function() vim.lsp.buf.document_highlight() end,
       },
-      v = {
-        x = { '"_x' },
-        d = { '"_d' },
-        D = { '"_D' },
-        y = { '"+y' },
+      {
+        event = { "CursorMoved", "CursorMovedI", "BufLeave" },
+        desc = "Document Highlighting Clear",
+        callback = function() vim.lsp.buf.clear_references() end,
       },
+    },
+    lsp_codelens_refresh = {
+      cond = "textDocument/codeLens",
+      {
+        event = { "InsertLeave", "BufEnter" },
+        desc = "Refresh codelens (buffer)",
+        callback = function(args)
+          if require("astrolsp").config.features.codelens then vim.lsp.codelens.refresh { bufnr = args.buf } end
+        end,
+      },
+    },
+  },
+  mappings = {
+    n = {
+      ["<Leader>uY"] = {
+        function() require("astrolsp.toggles").buffer_semantic_tokens() end,
+        desc = "Toggle LSP semantic highlight (buffer)",
+        cond = function(client)
+          return client.supports_method(vim.lsp.client, "textDocument/semanticTokens/full")
+            and vim.lsp.semantic_tokens ~= nil
+        end,
+      },
+      gl = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+      x = { '"_x' },
+      d = { '"_d' },
+      D = { '"_D' },
+      p = { '"_dP' },
+      y = { '"+y' },
+      Y = { '"+y$' },
+    },
+    v = {
+      x = { '"_x' },
+      d = { '"_d' },
+      D = { '"_D' },
+      y = { '"+y' },
     },
   },
 }

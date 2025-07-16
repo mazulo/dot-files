@@ -15,6 +15,7 @@ return {
         python = { "mypy" },
       }
       lint.linters.mypy = {
+        name = "mypy",
         cmd = "mypy",
         stdin = false,
         ignore_exitcode = true,

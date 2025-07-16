@@ -8,6 +8,7 @@ return {
   { import = "astrocommunity.keybinding.nvcheatsheet-nvim" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.search.nvim-spectre" },
   {
     import = "astrocommunity.editing-support.ultimate-autopair-nvim",
     opts = {

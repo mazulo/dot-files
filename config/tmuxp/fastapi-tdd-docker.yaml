@@ -8,7 +8,7 @@ windows:
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon fastapi-tdd-docker && nvm use stable && nvim .
+    shell_command: workon fastapi-tdd-docker && nvm use stable && nvim
 - layout: ebe7,489x97,0,0,28
   window_name: servers
   options: {}

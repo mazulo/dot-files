@@ -18,7 +18,8 @@ return {
         -- install formatters and linters
         "stylua",
         "prettier",
-        "mypy",
+        -- "mypy",
+        "ty",
         -- install any other package
         "tree-sitter-cli",
       },

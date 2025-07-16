@@ -1,0 +1,59 @@
+session_name: dot-files
+start_directory: /Users/mazulo/Dev/open-source/dot-files
+
+windows:
+  - focus: "true"
+    window_name: editor
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: nvim
+  - window_name: shell
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+  - window_name: editor nvim config files
+    start_directory: /Users/mazulo/.config/nvim
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: nvim
+  - window_name: .config dir
+    start_directory: /Users/mazulo/.config/
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: nvim
+  - window_name: submodule editor
+    start_directory: /Users/mazulo/Dev/open-source/dot-files/.config/grabber/
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: workon polars && nvim
+  - window_name: submodule shell
+    start_directory: /Users/mazulo/Dev/open-source/dot-files/.config/grabber/
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: workon polars
+
+  - window_name: submodule shell
+    start_directory: /Users/mazulo/Dev/open-source/dot-files/.config/grabber/
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: workon polars
+
+  - window_name: submodule shell
+    start_directory: /Users/mazulo/Dev/open-source/dot-files/.config/grabber/
+    suppress_history: true
+    options: {}
+    panes:
+      - focus: "true"
+        shell_command: workon polars

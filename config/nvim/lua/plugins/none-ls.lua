@@ -8,7 +8,7 @@ return {
     opts.sources = require("astrocore").list_insert_unique(opts.sources, {
       require "none-ls.formatting.ruff",
       require "none-ls.formatting.ruff_format",
-      require "null-ls.builtins.diagnostics.mypy",
+      -- require "null-ls.builtins.diagnostics.mypy",
     })
   end,
 }

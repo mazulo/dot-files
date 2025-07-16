@@ -8,7 +8,7 @@ windows:
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon dot && nvm use stable && nvim .
+    shell_command: workon dot && nvm use stable && nvim
 - layout: ebe5,489x97,0,0,26
   window_name: servers and shell
   options: {}

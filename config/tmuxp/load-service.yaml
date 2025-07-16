@@ -8,7 +8,7 @@ windows:
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon load-service && nvm use stable && nvim .
+    shell_command: workon load-service && nvm use stable && nvim
 - layout: ebe0,489x97,0,0,40
   window_name: server
   options: {}

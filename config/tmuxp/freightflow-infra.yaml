@@ -1,0 +1,19 @@
+session_name: freightflow-infra
+start_directory: /Users/mazulo/Dev/d7/freightflow/freightflow-infra
+
+windows:
+- focus: 'true'
+  window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvim
+- window_name: server
+  options: {}
+  panes:
+  - focus: 'true'
+- window_name: freightflow root
+  start_directory: /Users/mazulo/Dev/d7/freightflow
+  options: {}
+  panes:
+  - focus: 'true'
