@@ -2,3 +2,4 @@
 lazy-lock.json
 _local
 .config/
+.python-version
