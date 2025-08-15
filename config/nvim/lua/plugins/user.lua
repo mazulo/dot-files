@@ -1,13 +1,18 @@
 ---@type LazySpec
 return {
+
+  -- == Examples of Adding Plugins ==
+
   "andweeb/presence.nvim",
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function() require("lsp_signature").setup() end,
-    enabled = false,
   },
-  { "echasnovski/mini.icons", version = "*" },
+
+  -- == Examples of Overriding Plugins ==
+
+  -- customize dashboard options
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -90,16 +95,165 @@ return {
           },
         },
       },
+      explorer = {
+        replace_netrw = true, -- Replace netrw with the snacks explorer
+      },
       picker = {
         enabled = true,
-        files = {
-          finder = "files",
-          format = "file",
-          show_empty = true,
-          hidden = false,
-          ignored = true,
-          follow = false,
-          supports_live = true,
+        sources = {
+          cliphist = {
+            finder = "system_cliphist",
+            format = "text",
+            preview = "preview",
+            confirm = { "copy", "close" },
+          },
+          explorer = {
+            replace_netrw = true, -- Replace netrw with the snacks explorer
+            finder = "explorer",
+            tree = true,
+            hidden = true,
+            follow_file = true,
+            git_status = true,
+            git_untracked = true,
+            watch = true,
+            exclude = {
+              "./node_modules/",
+              "node_modules",
+              "*node_modules*",
+              "/.yarn/cache/",
+              "/.yarn/install",
+              "/.yarn/releases/",
+              "/.pnpm-store/",
+              "/.venv/",
+              "/venv/",
+              "/__pycache__/",
+              "/.ruff_cache/",
+              "/.mypy_cache/",
+              "*.pyc",
+            },
+            on_show = function(picker)
+              local position = picker.resolved_layout.layout.position
+              if position == "left" or position == "right" then vim.cmd "wincmd =" end
+            end,
+            on_close = function(picker)
+              local position = picker.resolved_layout.layout.position
+              if position == "left" or position == "right" then vim.cmd "wincmd =" end
+              picker.preview.win:close()
+            end,
+          },
+          grep = {
+            finder = "grep",
+            regex = true,
+            format = "file",
+            show_empty = true,
+            live = true, -- live grep by default
+            supports_live = true,
+            hidden = true,
+          },
+          files = {
+            finder = "files",
+            format = "file",
+            show_empty = true,
+            hidden = true,
+            ignored = false,
+            follow = true,
+            supports_live = true,
+            include = { ".github/" },
+            exclude = {
+              "/.git/",
+              "./node_modules/",
+              "node_modules/",
+              "*node_modules*",
+              "/.yarn/cache/",
+              "/.yarn/install",
+              "/.yarn/releases/",
+              "/.pnpm-store/",
+              "/.venv/",
+              "/venv/",
+              "/__pycache__/",
+              "/.ruff_cache/",
+              "/.mypy_cache/",
+              "*.pyc",
+              "_local/",
+            },
+          },
+          lsp_declarations = {
+            finder = "lsp_declarations",
+            format = "file",
+            include_current = false,
+            auto_confirm = true,
+            jump = { tagstack = true, reuse_win = true },
+          },
+          lsp_definitions = {
+            finder = "lsp_definitions",
+            format = "file",
+            include_current = false,
+            auto_confirm = true,
+            jump = { tagstack = true, reuse_win = true },
+          },
+          lsp_implementations = {
+            finder = "lsp_implementations",
+            format = "file",
+            include_current = false,
+            auto_confirm = true,
+            jump = { tagstack = true, reuse_win = true },
+          },
+          lsp_references = {
+            finder = "lsp_references",
+            format = "file",
+            include_declaration = true,
+            include_current = false,
+            auto_confirm = true,
+            jump = { tagstack = true, reuse_win = true },
+          },
+          lsp_symbols = {
+            finder = "lsp_symbols",
+            format = "lsp_symbol",
+            tree = true,
+            filter = {
+              default = {
+                "Class",
+                "Constructor",
+                "Enum",
+                "Field",
+                "Function",
+                "Interface",
+                "Method",
+                "Module",
+                "Namespace",
+                "Package",
+                "Property",
+                "Struct",
+                "Trait",
+              },
+              -- set to `true` to include all symbols
+              markdown = true,
+              help = true,
+              -- you can specify a different filter for each filetype
+              lua = {
+                "Class",
+                "Constructor",
+                "Enum",
+                "Field",
+                "Function",
+                "Interface",
+                "Method",
+                "Module",
+                "Namespace",
+                -- "Package", -- remove package since luals uses it for control flow structures
+                "Property",
+                "Struct",
+                "Trait",
+              },
+            },
+          },
+          notifications = {
+            finder = "snacks_notifier",
+            format = "notification",
+            preview = "preview",
+            formatters = { severity = { level = true } },
+            confirm = "close",
+          },
         },
         matcher = {
           fuzzy = true, -- use fuzzy matching
@@ -114,27 +268,6 @@ return {
           frecency = false, -- frecency bonus
           history_bonus = false, -- give more weight to chronological order
         },
-        sort = {
-          -- default sort is by score, text length and index
-          fields = { "score:desc", "#text", "idx" },
-        },
-        ui_select = true,
-        previewers = {
-          diff = {
-            builtin = true, -- use Neovim for previewing diffs (true) or use an external tool (false)
-            cmd = { "delta" }, -- example to show a diff with delta
-          },
-          git = {
-            builtin = true, -- use Neovim for previewing git output (true) or use git (false)
-            args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
-          },
-          file = {
-            max_size = 1024 * 256,
-            max_line_length = nil,
-            ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
-          },
-          man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
-        },
         ---@class snacks.picker.jump.Config
         jump = {
           jumplist = true, -- save the current position in the jumplist
@@ -143,134 +276,23 @@ return {
           close = false, -- close the picker when jumping/editing to a location (defaults to true)
           match = false, -- jump to the first match position. (useful for `lines`)
         },
-        toggles = {
-          follow = "f",
-          hidden = "h",
-          ignored = "i",
-          modified = "m",
-          regex = { icon = "R", value = false },
-        },
-        cliphist = {
-          finder = "system_cliphist",
-          format = "text",
-          preview = "preview",
-          confirm = { "copy", "close" },
-        },
-        explorer = {
-          tree = false,
-          auto_close = false,
-          diagnostics = true,
-          finder = "explorer",
-          follow_file = true,
-          git_untracked = true,
-          sort = { fields = { "sort" } },
-          supports_live = true,
-          watch = true,
-          focus = "list",
-          jump = { close = false },
-          layout = { preset = "sidebar", preview = false },
-          -- to show the explorer to the right, add the below to
-          -- your config under `opts.picker.sources.explorer`
-          -- layout = { layout = { position = "right" } },
-          formatters = {
-            file = { filename_only = true },
-            severity = { pos = "right" },
-          },
-          matcher = { sort_empty = false, fuzzy = false },
-          config = function(opts) return require("snacks.picker.source.explorer").setup(opts) end,
-        },
-        grep = {
-          finder = "grep",
-          regex = true,
-          format = "file",
-          show_empty = true,
-          live = true, -- live grep by default
-          supports_live = true,
-          hidden = true,
-        },
-        lsp_declarations = {
-          finder = "lsp_declarations",
-          format = "file",
-          include_current = false,
-          auto_confirm = true,
-          jump = { tagstack = true, reuse_win = true },
-        },
-        lsp_definitions = {
-          finder = "lsp_definitions",
-          format = "file",
-          include_current = false,
-          auto_confirm = true,
-          jump = { tagstack = true, reuse_win = true },
-        },
-        lsp_implementations = {
-          finder = "lsp_implementations",
-          format = "file",
-          include_current = false,
-          auto_confirm = true,
-          jump = { tagstack = true, reuse_win = true },
-        },
-        lsp_references = {
-          finder = "lsp_references",
-          format = "file",
-          include_declaration = true,
-          include_current = false,
-          auto_confirm = true,
-          jump = { tagstack = true, reuse_win = true },
-        },
-        lsp_symbols = {
-          finder = "lsp_symbols",
-          format = "lsp_symbol",
-          tree = true,
-          filter = {
-            default = {
-              "Class",
-              "Constructor",
-              "Enum",
-              "Field",
-              "Function",
-              "Interface",
-              "Method",
-              "Module",
-              "Namespace",
-              "Package",
-              "Property",
-              "Struct",
-              "Trait",
-            },
-            -- set to `true` to include all symbols
-            markdown = true,
-            help = true,
-            -- you can specify a different filter for each filetype
-            lua = {
-              "Class",
-              "Constructor",
-              "Enum",
-              "Field",
-              "Function",
-              "Interface",
-              "Method",
-              "Module",
-              "Namespace",
-              -- "Package", -- remove package since luals uses it for control flow structures
-              "Property",
-              "Struct",
-              "Trait",
+        win = {
+          input = {
+            keys = {
+              ["w"] = { { "pick_win", "jump" }, mode = { "n", "i" } },
+              ["<Esc>"] = "cancel",
             },
           },
-        },
-        lsp_type_definitions = {
-          finder = "lsp_type_definitions",
-          format = "file",
-          include_current = false,
-          auto_confirm = true,
-          jump = { tagstack = true, reuse_win = true },
-        },
-        notifications = {
-          finder = "snacks_notifier",
-          format = "notification",
-          preview = "preview",
-          formatters = { severity = { level = true } },
-          confirm = "close",
+          list = {
+            keys = {
+              ["<Esc>"] = "cancel",
+              ["w"] = { { "pick_win", "jump" } },
+            },
+            wo = {
+              conceallevel = 2,
+              concealcursor = "nvc",
+            },
+          },
         },
       },
     },
@@ -281,7 +303,7 @@ return {
       { "<leader>\\", function() require("snacks").picker.grep() end, desc = "Grep" },
       { "<leader>:", function() require("snacks").picker.command_history() end, desc = "Command History" },
       { "<leader>n", function() require("snacks").picker.notifications() end, desc = "Notification History" },
-      { "<leader>E", function() require("snacks").explorer() end, desc = "File Explorer" },
+      { "<leader>e", function() require("snacks").explorer() end, desc = "File Explorer" },
       -- find
       { "<leader>fb", function() require("snacks").picker.buffers() end, desc = "Buffers" },
       {
@@ -357,47 +379,26 @@ return {
               },
             },
           },
-          -- modes = {
-          --   preview_float = {
-          --     mode = "diagnostics",
-          --     preview = {
-          --       type = "float",
-          --       relative = "editor",
-          --       border = "rounded",
-          --       title = "Preview",
-          --       title_pos = "center",
-          --       position = { 0, -2 },
-          --       size = { width = 0.3, height = 0.3 },
-          --       zindex = 200,
-          --     },
-          --   },
-          -- },
+          modes = {
+            preview_float = {
+              mode = "diagnostics",
+              preview = {
+                type = "float",
+                relative = "editor",
+                border = "rounded",
+                title = "Preview",
+                title_pos = "center",
+                position = { 0, -2 },
+                size = { width = 0.3, height = 0.3 },
+                zindex = 200,
+              },
+            },
+          },
         })
       end,
     },
   },
-  {
-    "folke/edgy.nvim",
-    ---@module 'edgy'
-    ---@param opts Edgy.Config
-    opts = function(_, opts)
-      for _, pos in ipairs { "top", "bottom", "left", "right" } do
-        opts[pos] = opts[pos] or {}
-        table.insert(opts[pos], {
-          ft = "snacks_terminal",
-          size = { height = 0.4 },
-          title = "%{b:snacks_terminal.id}: %{b:term_title}",
-          filter = function(_buf, win)
-            return vim.w[win].snacks_win
-              and vim.w[win].snacks_win.position == pos
-              and vim.w[win].snacks_win.relative == "editor"
-              and not vim.w[win].trouble_preview
-          end,
-        })
-      end
-    end,
-  },
-  { "max397574/better-escape.nvim", enabled = false },
+
   {
     "L3MON4D3/LuaSnip",
     config = function(plugin, opts)
@@ -407,224 +408,6 @@ return {
       luasnip.filetype_extend("javascript", { "javascriptreact" })
     end,
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      default_component_configs = {
-        container = {
-          enable_character_fade = false,
-          width = "100%",
-          right_padding = 0,
-        },
-        file_size = {
-          enabled = true,
-          required_width = 64,
-        },
-        type = {
-          enabled = true,
-          required_width = 122,
-        },
-        diagnostics = {
-          symbols = {
-            hint = "󰌵",
-            info = "",
-            warn = "",
-            error = "",
-          },
-          highlights = {
-            hint = "DiagnosticSignHint",
-            info = "DiagnosticSignInfo",
-            warn = "DiagnosticSignWarn",
-            error = "DiagnosticSignError",
-          },
-        },
-      },
-      event_handlers = {
-        {
-          event = "neo_tree_window_after_open",
-          handler = function(args)
-            if args.position == "left" or args.position == "right" then vim.cmd "wincmd =" end
-          end,
-        },
-        {
-          event = "neo_tree_window_after_close",
-          handler = function(args)
-            if args.position == "left" or args.position == "right" then vim.cmd "wincmd =" end
-          end,
-        },
-      },
-      renderers = {
-        directory = {
-          { "indent" },
-          { "icon" },
-          { "current_filter" },
-          {
-            "container",
-            width = "fit_content",
-            content = {
-              { "name", zindex = 10 },
-              {
-                "symlink_target",
-                zindex = 10,
-                highlight = "NeoTreeSymbolicLinkTarget",
-              },
-              { "clipboard", zindex = 10 },
-              { "diagnostics", errors_only = true, zindex = 20, align = "right", hide_when_expanded = true },
-              { "git_status", zindex = 10, align = "right", hide_when_expanded = true },
-              { "file_size", zindex = 10, align = "right" },
-              { "type", zindex = 10, align = "right" },
-              { "last_modified", zindex = 10, align = "right" },
-              { "created", zindex = 10, align = "right" },
-            },
-          },
-        },
-        file = {
-          { "indent" },
-          { "icon" },
-          {
-            "container",
-            width = "fit_content",
-            content = {
-              {
-                "name",
-                zindex = 10,
-              },
-              {
-                "symlink_target",
-                zindex = 10,
-                highlight = "NeoTreeSymbolicLinkTarget",
-              },
-              { "clipboard", zindex = 10 },
-              { "bufnr", zindex = 10 },
-              { "modified", zindex = 20, align = "right" },
-              { "diagnostics", zindex = 20, align = "right" },
-              { "git_status", zindex = 10, align = "right" },
-              { "file_size", zindex = 10, align = "right" },
-              { "type", zindex = 10, align = "right" },
-              { "last_modified", zindex = 10, align = "right" },
-              { "created", zindex = 10, align = "right" },
-            },
-          },
-        },
-      },
-      filesystem = {
-        bind_to_cwd = true,
-        filtered_items = {
-          visible = false,
-          hide_dotfiles = false,
-          hide_hidden = true,
-          hide_by_name = {
-            "node_modules",
-            "__pycache__",
-          },
-          hide_by_pattern = {
-            "*.meta",
-            "*.pyc",
-          },
-          always_show = {
-            ".env",
-            ".envrc",
-          },
-          always_show_by_pattern = {
-            --".env*",
-          },
-          never_show = {
-            ".DS_Store",
-            "thumbs.db",
-          },
-          never_show_by_pattern = {
-            ".null-ls_*",
-          },
-        },
-        follow_current_file = {
-          enabled = true,
-          leave_dirs_open = true,
-        },
-      },
-      source_selector = {
-        sources = {
-          {
-            source = "filesystem",
-            display_name = " 󰉓 Files ",
-          },
-          {
-            source = "buffers",
-            display_name = " 󰈚 Buffers ",
-          },
-          {
-            source = "git_status",
-            display_name = " 󰊢 Git ",
-          },
-        },
-        winbar = true, -- toggle to show selector on winbar
-      },
-      buffers = {
-        follow_current_file = {
-          enabled = true,
-          leave_dirs_open = true,
-        },
-        show_unloaded = true,
-      },
-      git_status = {
-        window = {
-          position = "float",
-        },
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      {
-        "s1n7ax/nvim-window-picker",
-        version = "2.*",
-        config = function()
-          require("window-picker").setup {
-            hint = "floating-big-letter",
-            selection_chars = "ASDFKL;CMRUEIWOQP",
-            prompt_message = "Pick window: ",
-            filter_rules = {
-              include_current_win = false,
-              autoselect_one = true,
-              -- filter using buffer options
-              bo = {
-                -- if the file type is one of following, the window will be ignored
-                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                -- if the buffer type is one of following, the window will be ignored
-                buftype = { "terminal", "quickfix" },
-              },
-            },
-            highlights = {
-              statusline = {
-                focused = {
-                  fg = "#ededed",
-                  bg = "#e35e4f",
-                  bold = true,
-                },
-                unfocused = {
-                  fg = "#ededed",
-                  bg = "#44cc41",
-                  bold = true,
-                },
-              },
-              winbar = {
-                focused = {
-                  fg = "#ededed",
-                  bg = "#e35e4f",
-                  bold = true,
-                },
-                unfocused = {
-                  fg = "#ededed",
-                  bg = "#44cc41",
-                  bold = true,
-                },
-              },
-            },
-          }
-        end,
-      },
-    },
-  },
-
   {
     "towolf/vim-helm",
     ft = "helm",

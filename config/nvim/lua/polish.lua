@@ -1,4 +1,6 @@
-vim.opt.laststatus = 3
+-- This will run last in the setup process.
+-- This is just pure lua so anything that doesn't
+-- fit in the normal config locations above can go here
 vim.keymap.set("n", "-", function()
   local reveal_file = vim.fn.expand "%:p"
   if reveal_file == "" then
@@ -20,9 +22,3 @@ vim.keymap.set("n", "-", function()
     reveal_force_cwd = true,
   }
 end, { desc = "Open neo-tree at current file or working directory" })
-
--- vim.keymap.set("i", "<C-n>", function()
---   local nldocs = require "noice.lsp.docs"
---   local message = nldocs.get "signature"
---   nldocs.hide(message)
--- end)

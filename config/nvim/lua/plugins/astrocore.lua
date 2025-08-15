@@ -3,6 +3,7 @@ return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
   opts = {
+    -- Configure core features of AstroNvim
     features = {
       large_buf = { size = 2048 * 256, lines = 10000 },
       autopairs = false,
@@ -30,7 +31,7 @@ return {
       opt = {
         relativenumber = false,
         number = true,
-        spell = false,
+        spell = true,
         signcolumn = "yes",
         wrap = false,
       },

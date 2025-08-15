@@ -36,7 +36,7 @@ return {
     branch = "regexp",
     lazy = false,
     enabled = vim.fn.executable "fd" == 1 or vim.fn.executable "fdfind" == 1 or vim.fn.executable "fd-find" == 1,
-    -- event = { "User AstroFile", "LspAttach" },
+    event = { "User AstroFile", "LspAttach" },
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "neovim/nvim-lspconfig",
