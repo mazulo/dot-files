@@ -1,0 +1,24 @@
+session_name: fcm-scripts
+start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/fcm-scripts/
+
+windows:
+- window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fcm-scripts && nvim
+- window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fcm-scripts
+- window_name: tests
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: export workon fcm-scripts
+- window_name: web server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon fcm-scripts

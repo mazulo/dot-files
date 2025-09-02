@@ -1,5 +1,5 @@
-session_name: refine-tutorial
-start_directory: /Users/mazulo/dev/study/refine/refine-tutorial/
+session_name: heroui-components
+start_directory: /Users/mazulo/dev/work/ashenlabs/avenidas/heroui-components/
 
 windows:
 - focus: 'true'

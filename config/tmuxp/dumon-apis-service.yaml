@@ -1,0 +1,24 @@
+session_name: dumon-apis-service
+start_directory: /Users/mazulo/dev/work/ashenlabs/closecare/dumon-apis-service/
+
+windows:
+- window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV} && workon dumon-apis-service && nvim
+- window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV} && workon dumon-apis-service
+- window_name: tests
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV} && workon dumon-apis-service
+- window_name: web server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV} && workon dumon-apis-service

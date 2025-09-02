@@ -1,5 +1,5 @@
-session_name: refine-tutorial
-start_directory: /Users/mazulo/dev/study/refine/refine-tutorial/
+session_name: service-hub-frontend
+start_directory: /Users/mazulo/dev/work/ashenlabs/avenidas/service-hub-frontend/
 
 windows:
 - focus: 'true'

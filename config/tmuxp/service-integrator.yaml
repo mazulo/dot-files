@@ -1,0 +1,29 @@
+session_name: service-integrator
+start_directory: /Users/mazulo/dev/work/ashenlabs/closecare/service-integrator
+
+windows:
+- window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v22.17.1 && nvim
+- window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v22.17.1
+- window_name: web server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v22.17.1
+- window_name: mock server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v22.17.1
+- window_name: tests
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: nvm use v22.17.1
