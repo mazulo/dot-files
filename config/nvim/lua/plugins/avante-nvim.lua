@@ -67,7 +67,7 @@ return {
         },
       },
     },
-    {
+    { -- if copilot.lua is available, default to copilot provider
       "zbirenbaum/copilot.lua",
       optional = true,
       specs = {
@@ -81,11 +81,22 @@ return {
       },
     },
     {
+      -- make sure `Avante` is added as a filetype
       "MeanderingProgrammer/render-markdown.nvim",
       optional = true,
       opts = function(_, opts)
-        if not opts.file_types then opts.filetypes = { "markdown" } end
+        if not opts.file_types then opts.file_types = { "markdown" } end
         opts.file_types = require("astrocore").list_insert_unique(opts.file_types, { "Avante" })
+      end,
+    },
+    {
+      -- make sure `Avante` is added as a filetype
+      "OXY2DEV/markview.nvim",
+      optional = true,
+      opts = function(_, opts)
+        if not opts.preview then opts.preview = {} end
+        if not opts.preview.filetypes then opts.preview.filetypes = { "markdown", "quarto", "rmd" } end
+        opts.preview.filetypes = require("astrocore").list_insert_unique(opts.preview.filetypes, { "Avante" })
       end,
     },
     {
@@ -116,6 +127,7 @@ return {
               local sidebar = require("avante").get()
 
               local open = sidebar:is_open()
+              -- ensure avante sidebar is open
               if not open then
                 require("avante.api").ask()
                 sidebar = require("avante").get()
@@ -123,13 +135,14 @@ return {
 
               sidebar.file_selector:add_selected_file(relative_path)
 
+              -- remove neo tree buffer
               if not open then sidebar.file_selector:remove_selected_file "neo-tree filesystem [1]" end
             end,
           },
-        },
-        window = {
-          mappings = {
-            ["oa"] = "avante_add_files",
+          window = {
+            mappings = {
+              ["oa"] = "avante_add_files",
+            },
           },
         },
       },
