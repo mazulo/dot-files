@@ -1,0 +1,24 @@
+session_name: tradeflows-backend
+start_directory: /Users/mazulo/Dev/ashenlabs/tradeflows/backend/
+
+windows:
+- window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon tradeflows-backend && export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV} && nvim
+- window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon tradeflows-backend && export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV}
+- window_name: web server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon tradeflows-backend && export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV}
+- window_name: tests
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon tradeflows-backend && export UV_PROJECT_ENVIRONMENT=${VIRTUAL_ENV}

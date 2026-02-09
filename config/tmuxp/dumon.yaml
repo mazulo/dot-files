@@ -1,5 +1,5 @@
-session_name: ai-agents
-start_directory: /Users/mazulo/Dev/ashenlabs/closecare/ai-agents/
+session_name: dumon
+start_directory: /Users/mazulo/Dev/ashenlabs/closecare/dumon-apis-service/
 
 windows:
 - window_name: editor

@@ -1,0 +1,25 @@
+session_name: landing-labs
+start_directory: /Users/mazulo/Dev/ashenlabs/solo/landing-lab/
+
+windows:
+- focus: 'true'
+  window_name: editor
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon landing-labs && nvim
+- window_name: api server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon landing-labs
+- window_name: frontend server
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon landing-labs
+- window_name: shell
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: workon landing-labs

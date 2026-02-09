@@ -1,5 +1,5 @@
-session_name: ai-agents
-start_directory: /Users/mazulo/Dev/ashenlabs/closecare/ai-agents/
+session_name: tradeflows-frontend
+start_directory: /Users/mazulo/Dev/ashenlabs/tradeflows/frontend/
 
 windows:
 - window_name: editor
@@ -12,12 +12,12 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-- window_name: tests
+- window_name: web server
   options: {}
   panes:
   - focus: 'true'
     shell_command:
-- window_name: web server
+- window_name: tests
   options: {}
   panes:
   - focus: 'true'
