@@ -1,6 +1,7 @@
 return {
   {
     "mfussenegger/nvim-lint",
+    enabled = false,
     config = function(_, _)
       local lint = require "lint"
       local pattern = "([^:]+):(%d+):(%d+):(%d+):(%d+): (%a+): (.*)"

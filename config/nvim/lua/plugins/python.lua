@@ -2,41 +2,44 @@ return {
   {
     "AstroNvim/astrolsp",
     optional = true,
-    ---@type AstroLSPOpts
-    opts = {
-      ---@diagnostic disable: missing-fields
-      config = {
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                autoImportCompletions = true,
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "openFilesOnly",
-                typeCheckingMode = "off",
-                diagnosticSeverityOverrides = {
-                  reportUnusedImport = "information",
-                  reportUnusedFunction = "information",
-                  reportUnusedVariable = "information",
-                  reportGeneralTypeIssues = "none",
-                  reportOptionalMemberAccess = "none",
-                  reportOptionalSubscript = "none",
-                  reportPrivateImportUsage = "none",
-                },
-              },
+    ---@param opts AstroLSPOpts
+    opts = function(_, opts)
+      table.insert(opts.servers, "pyrefly")
+      opts.config.pyrefly = {
+        cmd = vim.fn.executable "pyrefly" == 1 and { "pyrefly", "lsp" } or { "uvx", "pyrefly", "lsp" },
+        filetypes = { "python" },
+        root_dir = require("lspconfig.util").root_pattern(
+          "pyrefly.toml",
+          "pyproject.toml",
+          "setup.py",
+          "setup.cfg",
+          "requirements.txt",
+          "Pipfile",
+          ".git"
+        ),
+        settings = {
+          python = {
+            pyrefly = {
+              displayTypeErrors = true,
+              disableTypeErrors = "force-on",
             },
           },
         },
-      },
-    },
+      }
+    end,
+  },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, { "pyrefly" })
+    end,
   },
   {
     "linux-cultist/venv-selector.nvim",
-    branch = "regexp",
     lazy = false,
     enabled = vim.fn.executable "fd" == 1 or vim.fn.executable "fdfind" == 1 or vim.fn.executable "fd-find" == 1,
-    event = { "User AstroFile", "LspAttach" },
+    -- event = { "User AstroFile", "LspAttach" },
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "neovim/nvim-lspconfig",
@@ -51,13 +54,6 @@ return {
         },
       },
     },
-    config = function()
-      local venv_selector_hooks = require "venv-selector.hooks"
-      require("venv-selector").setup {
-        changed_venv_hooks = { venv_selector_hooks.basedpyright_hook },
-        notify_user_on_venv_activation = true,
-      }
-    end,
     cmd = "VenvSelect",
   },
 }
