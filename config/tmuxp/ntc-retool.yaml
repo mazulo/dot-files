@@ -1,5 +1,5 @@
-session_name: ntc-scripts
-start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/ntc-scripts/
+session_name: ntc-retool
+start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/ntc-retool/
 
 windows:
 - window_name: editor

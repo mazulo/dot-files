@@ -4,47 +4,8 @@ return {
     opts = {
       mappings = {
         n = {
-          -- Next buffer
-          -- ["\x1b[1;5I"] = {
-          --   function() require("astrocore.buffer").nav(vim.v.count1) end,
-          --   desc = "Next buffer (Ctrl+Tab)",
-          -- },
-          -- ["\x1b[1;3I"] = {
-          --   function() require("astrocore.buffer").nav(vim.v.count1) end,
-          --   desc = "Next buffer (Alt+Tab)",
-          -- },
-          --
-          -- -- Previous buffer
-          -- ["\x1b[1;6I"] = {
-          --   function() require("astrocore.buffer").nav(-vim.v.count1) end,
-          --   desc = "Prev buffer (Ctrl+Shift+Tab)",
-          -- },
-          -- ["\x1b[1;4I"] = {
-          --   function() require("astrocore.buffer").nav(-vim.v.count1) end,
-          --   desc = "Prev buffer (Alt+Shift+Tab)",
-          -- },
-          -- ["<C-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+          ["<A-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
           ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-          ["<M-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-          -- ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
-          ["<F13>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer (Ctrl+Tab)" },
-          ["<F14>"] = {
-            function() require("astrocore.buffer").nav(-vim.v.count1) end,
-            desc = "Prev buffer (Ctrl+Shift+Tab)",
-          },
-          -- next buffer
-          -- ["<Esc>[1;5I"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-          -- ["<Esc>[1;3I"] = {
-          --   function() require("astrocore.buffer").nav(vim.v.count1) end,
-          --   desc = "Next buffer (Option)",
-          -- },
-
-          -- previous buffer
-          -- ["<Esc>[1;6I"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Prev buffer" },
-          -- ["<Esc>[1;4I"] = {
-          --   function() require("astrocore.buffer").nav(-vim.v.count1) end,
-          --   desc = "Prev buffer (Opt+Shift)",
-          -- },
           ["<Leader>b"] = { desc = "Buffers" },
           ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
           ["<Leader>bD"] = {
@@ -64,7 +25,7 @@ return {
                 format = "file",
                 include_current = false,
                 auto_confirm = true,
-                confirm = "edit_vsplit",
+                -- confirm = "edit_vsplit",
                 jump = { tagstack = true, reuse_win = false },
               }
             end,
@@ -77,7 +38,7 @@ return {
                 format = "file",
                 include_current = false,
                 auto_confirm = true,
-                confirm = "edit_vsplit",
+                -- confirm = "edit_vsplit",
                 jump = { tagstack = true, reuse_win = true },
               }
             end,
@@ -115,6 +76,10 @@ return {
           D = { '"_D' },
           y = { '"+y' },
         },
+        -- i = {
+        --   ["<C-Left>"] = { "<C-o>b", desc = "Move to previous word" },
+        --   ["<C-Right>"] = { "<C-o>e", desc = "Move to end of word" },
+        -- },
       },
     },
   },

@@ -1,11 +1,13 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  { import = "astrocommunity.colorscheme.catppuccin" },
-  { import = "astrocommunity.colorscheme.tokyodark-nvim" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.completion.blink-cmp" },
+  { import = "astrocommunity.editing-support.cutlass-nvim" },
+  { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
+  { import = "astrocommunity.lsp.nvim-lint" },
+  { import = "astrocommunity.pack.just" },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.search.nvim-spectre" },
   {

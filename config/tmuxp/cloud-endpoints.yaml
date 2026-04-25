@@ -1,5 +1,5 @@
-session_name: fcm-scripts
-start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/fcm-scripts/
+session_name: cloud-endpoints
+start_directory: /Users/mazulo/dev/work/ashenlabs/closecare/cloud-endpoints/
 
 windows:
 - window_name: editor
@@ -12,17 +12,7 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-- window_name: tests
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command:
 - window_name: web server
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command:
-- window_name: ssh
   options: {}
   panes:
   - focus: 'true'

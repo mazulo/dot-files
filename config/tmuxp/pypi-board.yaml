@@ -1,5 +1,5 @@
 session_name: pypi-board
-start_directory: /Users/mazulo/Dev/ashenlabs/solo/pypi-board/
+start_directory: /Users/mazulo/dev/work/ashenlabs/solo/pypi-board/
 
 windows:
 - focus: 'true'

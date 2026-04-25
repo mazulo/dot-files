@@ -1,42 +1,29 @@
 session_name: freightflow-web
-start_directory: /Users/mazulo/Dev/d7/freightflow/freightflow-web/
+start_directory: /Users/mazulo/dev/work/mazulo/freightflow-web/
 
 windows:
 - window_name: editor
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable && nvim
+    shell_command: nvim
 - window_name: shell and tests
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable
+    shell_command:
 - window_name: web server
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable
+    shell_command:
 - window_name: worker
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable
+    shell_command:
 - window_name: elasticsearch
   options: {}
   panes:
   - focus: 'true'
-    shell_command: workon freightflow-web && nvm use stable
-- window_name: home    
-  start_directory: /Users/mazulo
-  suppress_history: true
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command: unset HISTFILE && nvm use stable
-- start_directory: /Users/mazulo
-  suppress_history: true
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command: unset HISTFILE && nvm use stable
+    shell_command:

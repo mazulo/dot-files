@@ -43,9 +43,9 @@ return {
 
         opts.mapping["<C-X>"] = cmp.mapping(copilot_action "next")
         opts.mapping["<C-Z>"] = cmp.mapping(copilot_action "prev")
-        opts.mapping["<C-S-Right>"] = cmp.mapping(copilot_action "accept_word")
+        -- opts.mapping["<C-Right>"] = cmp.mapping(copilot_action "accept_word")
         opts.mapping["<C-L>"] = cmp.mapping(copilot_action "accept_word")
-        opts.mapping["<C-Down>"] = cmp.mapping(copilot_action "accept_line")
+        -- opts.mapping["<C-Down>"] = cmp.mapping(copilot_action "accept_line")
         opts.mapping["<C-J>"] = cmp.mapping(copilot_action "accept_line")
         opts.mapping["<C-C>"] = cmp.mapping(copilot_action "dismiss")
       end,
@@ -67,9 +67,9 @@ return {
         }
         opts.keymap["<C-X>"] = { copilot_action "next" }
         opts.keymap["<C-Z>"] = { copilot_action "prev" }
-        opts.keymap["<C-S-Right>"] = { copilot_action "accept_word" }
+        -- opts.keymap["<C-Right>"] = { copilot_action "accept_word" }
         opts.keymap["<C-L>"] = { copilot_action "accept_word" }
-        opts.keymap["<C-Down>"] = { copilot_action "accept_line" }
+        -- opts.keymap["<C-Down>"] = { copilot_action "accept_line" }
         opts.keymap["<C-J>"] = { copilot_action "accept_line", "select_next", "fallback" }
         opts.keymap["<C-C>"] = { copilot_action "dismiss" }
       end,

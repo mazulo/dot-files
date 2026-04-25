@@ -1,12 +1,12 @@
-session_name: ntc-scripts
-start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/ntc-scripts/
+session_name: convert-tables
+start_directory: /Users/mazulo/dev/work/ashenlabs/ninjatrader/table-converter/
 
 windows:
 - window_name: editor
   options: {}
   panes:
   - focus: 'true'
-    shell_command:
+    shell_command: nvim
 - window_name: shell
   options: {}
   panes:
@@ -18,11 +18,6 @@ windows:
   - focus: 'true'
     shell_command:
 - window_name: web server
-  options: {}
-  panes:
-  - focus: 'true'
-    shell_command:
-- window_name: ssh
   options: {}
   panes:
   - focus: 'true'

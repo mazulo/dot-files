@@ -1,5 +1,5 @@
 session_name: service-hub
-start_directory: /Users/mazulo/Dev/d7/avenidas/service-hub/
+start_directory: /Users/mazulo/dev/work/ashenlabs/avenidas/service-hub/
 
 windows:
 - window_name: editor

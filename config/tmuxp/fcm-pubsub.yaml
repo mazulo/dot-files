@@ -22,3 +22,8 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
+- window_name: ssh
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command:

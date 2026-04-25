@@ -3,6 +3,7 @@ return {
   "yetone/avante.nvim",
   build = "make",
   event = "User AstroFile",
+  enabled = false,
   cmd = {
     "AvanteAsk",
     "AvanteBuild",
