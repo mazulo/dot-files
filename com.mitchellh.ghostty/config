@@ -1,49 +1,89 @@
-# This is the configuration file for Ghostty.
+# Ghostty config
 #
-# This template file has been automatically created at the following
-# path since Ghostty couldn't find any existing config files on your system:
+# macOS config path:
+#   ~/Library/Application Support/com.mitchellh.ghostty/config
 #
-#   /Users/mazulo/Library/Application Support/com.mitchellh.ghostty/config
-#
-# The template does not set any default options, since Ghostty ships
-# with sensible defaults for all options. Users should only need to set
-# options that they want to change from the default.
-#
-# Run `ghostty +show-config --default --docs` to view a list of
-# all available config options and their default values.
-#
-# Additionally, each config option is also explained in detail
-# on Ghostty's website, at https://ghostty.org/docs/config.
+# Cross-platform/XDG path:
+#   ~/.config/ghostty/config
 
-# Config syntax crash course
-# ==========================
-# # The config file consists of simple key-value pairs,
-# # separated by equals signs.
-# font-family = Iosevka
-# window-padding-x = 2
+# Theme
+theme = Material Ocean
+
+# Font
 #
-# # Spacing around the equals sign does not matter.
-# # All of these are identical:
-# key=value
-# key= value
-# key =value
-# key = value
+# Your WezTerm config used:
+#   Source Code Pro for Powerline, Bold + Italic, size 11
 #
-# # Any line beginning with a # is a comment. It's not possible to put
-# # a comment after a config option, since it would be interpreted as a
-# # part of the value. For example, this will have a value of "#123abc":
-# background = #123abc
+# Ghostty does not have a single direct equivalent for “make all terminal text
+# bold italic”. This sets the family and size, and lets apps request bold/italic
+# normally.
+font-family = "Source Code Pro for Powerline"
+font-size = 12
+
+# Bell
 #
-# # Empty values are used to reset config keys to default.
-# key =
+# Equivalent intent to:
+#   config.audible_bell = "Disabled"
 #
-# # Some config options have unique syntaxes for their value,
-# # which is explained in the docs for that config option.
-# # Just for example:
-# resize-overlay-duration = 4s 200MS
-font-size = 11.0
+# Disables the macOS system alert sound.
+bell-features = no-system
+
+# Tabs / titlebar
+#
+# WezTerm:
+#   config.enable_tab_bar = false
+#
+# On macOS, Ghostty's visible tab/titlebar behavior is mainly controlled by
+# macos-titlebar-style. "transparent" is Ghostty's default and keeps the UI
+# minimal without using the custom tabs titlebar.
+#
+# If you want the titlebar completely hidden, change this to:
+#   macos-titlebar-style = hidden
+macos-titlebar-style = transparent
+
+# Keep Option behaving like terminal Alt.
+#
+# This is important for shell, tmux, and Neovim mappings.
+macos-option-as-alt = true
+
+# Keybindings
+#
+# WezTerm:
+#   CMD+m -> DisableDefaultAssignment
+#
+# In Ghostty, "ignore" consumes the key and does nothing.
+keybind = cmd+m=ignore
+
+# WezTerm:
+#   OPT+Enter -> DisableDefaultAssignment
+keybind = alt+enter=ignore
+
+# Neovim buffer/file switching
+#
+# This preserves your previous Ghostty behavior.
+#
+# It intentionally maps:
+#   Ctrl+Tab       -> CSI 9;3u
+#   Ctrl+ShiftTab  -> CSI 9;2u
+#
+# This matches the spirit of your WezTerm setup:
+#   Ctrl+Tab       -> sends Opt/Alt+Tab
+#   Ctrl+ShiftTab  -> sends Shift+Tab
+#
+# Keep the unbind lines so Ghostty's default bindings do not intercept these.
 keybind = ctrl+tab=unbind
 keybind = ctrl+shift+tab=unbind
 keybind = ctrl+tab=csi:9;3u
 keybind = ctrl+shift+tab=csi:9;2u
-macos-option-as-alt = true
+
+# Word movement
+#
+# WezTerm:
+#   OPT+LeftArrow  -> ALT+b
+#   OPT+RightArrow -> ALT+f
+#
+# In terminal terms:
+#   ALT+b == ESC b
+#   ALT+f == ESC f
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
