@@ -6,6 +6,8 @@ return {
         n = {
           ["<A-Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
           ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+          ["<Find>"] = { "^", desc = "Beginning of line" },
+          ["<Select>"] = { "$", desc = "End of line" },
           ["<Leader>b"] = { desc = "Buffers" },
           ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
           ["<Leader>bD"] = {
@@ -75,11 +77,13 @@ return {
           d = { '"_d' },
           D = { '"_D' },
           y = { '"+y' },
+          ["<Find>"] = { "^", desc = "Beginning of line" },
+          ["<Select>"] = { "$", desc = "End of line" },
         },
-        -- i = {
-        --   ["<C-Left>"] = { "<C-o>b", desc = "Move to previous word" },
-        --   ["<C-Right>"] = { "<C-o>e", desc = "Move to end of word" },
-        -- },
+        i = {
+          ["<Find>"] = { "<Home>", desc = "Beginning of line" },
+          ["<Select>"] = { "<End>", desc = "End of line" },
+        },
       },
     },
   },

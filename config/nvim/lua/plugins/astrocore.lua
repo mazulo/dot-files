@@ -5,7 +5,12 @@ return {
   opts = {
     -- Configure core features of AstroNvim
     features = {
-      large_buf = { size = 2048 * 256, lines = 10000 },
+      large_buf = {
+        size = 5 * 1024 * 1024, -- 5MB
+        lines = 30000,
+        line_length = 1000,
+        notify = true,
+      },
       autopairs = false,
       cmp = true,
       diagnostics = { virtual_text = true, virtual_lines = false },

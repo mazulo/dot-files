@@ -14,7 +14,10 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      bigfile = { enabled = true },
+      bigfile = {
+        enabled = true,
+        size = 5 * 1024 * 1024, -- 5MB
+      },
       dashboard = {
         preset = {
           header = table.concat({
@@ -129,7 +132,7 @@ return {
             args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
           },
           file = {
-            max_size = 1024 * 256,
+            max_size = 5 * 1024 * 1024, -- 5MB
             max_line_length = nil,
             ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
           },
