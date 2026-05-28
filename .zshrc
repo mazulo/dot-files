@@ -1,4 +1,5 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH="$HOME/.cargo/bin:/opt/homebrew/opt/rustup/bin:$PATH"
 export DISABLE_AUTO_TITLE='true'
 
 # Starship
@@ -141,33 +142,44 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # tmux specific setup to make full use of it's "popup" feature
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-width 160
+zstyle ':fzf-tab:*' popup-min-height 30
+zstyle ':fzf-tab:*' popup-pad 30 0
+zstyle ':fzf-tab:complete:cd:*' fzf-flags --preview-window=right:40%
 
 # ------------ uv environment variables ------------
 source $HOME/.local/bin/env
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 
+start_code="$(cat <<'EOF'
+import asyncio
 
+import cloudscraper
+import httpx
+from bs4 import BeautifulSoup
+
+scraper = cloudscraper.create_scraper(interpreter="nodejs")
+headers = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+}
+EOF
+)"
 # ------------ ALIASES ------------
-# git aliases
-alias gad="git add"
-alias gadall="git add ."
-alias undo="git reset --soft HEAD^1"
-alias unstage="git reset HEAD"
-alias wip="git commit -nam 'wip'"
-alias lint=./node_modules/.bin/eslint --ext .jsx,.js --config .eslintrc.js
-alias gsave="git stash -u"
-alias grestore="git stash pop"
-
-# misc
 alias remove_pycache='find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf;'
 alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\''{printf "%s ", $1} END {print ""}'\'''
+alias gad='git add'
 alias ls='ls --color=auto'
 alias run="./bin/run"
+alias gclone="rsync -avP --exclude-from=../.gitignore mazulo@hostinger2:/home/mazulo/dev/grabber /Users/mazulo/dev/config/dot-files/.config/ && cd grabber && head -n 1 assets/txt/commands.txt"
+alias reload="exec $SHELL"
+alias ipy='ipython --HistoryManager.hist_file=:memory: -i -c "$start_code"'
+alias load-grabber="uv pip uninstall grabberlib2 && uv sync"
+alias unload-grabber="uv pip uninstall grabberlib2 && uv pip install -U grabberlib2"
 # ---------------------------------
 
 export CHECKPOINT_SERVER_MODE=false
-alias reload="source ~/.zshrc"
 
 load-direnv() {
   local key_file="${HOME}/.config/age/key.txt"
@@ -202,3 +214,10 @@ unload-direnv() {
   eval "$(direnv export zsh)"
 }
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/Users/mazulo/.bun/_bun" ] && source "/Users/mazulo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
