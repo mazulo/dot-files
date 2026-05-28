@@ -33,3 +33,9 @@ fi
 if ! command -v uv >/dev/null 2>&1; then
   curl -LsSf https://astral.sh/uv/install.sh | sh
 fi
+
+# virtualenvwrapper into system python (matches .zshrc:58 source path)
+if [[ ! -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+  echo "Installing virtualenvwrapper into system python (sudo required)..."
+  sudo uv pip install virtualenvwrapper --system
+fi
