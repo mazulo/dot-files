@@ -6,7 +6,7 @@ return {
     -- Configure core features of AstroNvim
     features = {
       large_buf = {
-        size = 5 * 1024 * 1024, -- 5MB
+        size = 10 * 1024 * 1024, -- 10MB
         lines = 30000,
         line_length = 1000,
         notify = true,

@@ -86,7 +86,7 @@ return {
       bind_to_cwd = true,
       filtered_items = {
         visible = true,
-        -- hide_dotfiles = false,
+        hide_dotfiles = false,
         -- hide_hidden = true,
         hide_by_name = {
           "node_modules",

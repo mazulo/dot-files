@@ -1,4 +1,8 @@
 vim.opt.laststatus = 3
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function() vim.lsp.stop_client(vim.lsp.get_clients(), true) end,
+})
 vim.keymap.set("n", "-", function()
   local reveal_file = vim.fn.expand "%:p"
   if reveal_file == "" then

@@ -16,7 +16,7 @@ return {
     opts = {
       bigfile = {
         enabled = true,
-        size = 5 * 1024 * 1024, -- 5MB
+        size = 10 * 1024 * 1024, -- 10MB
       },
       dashboard = {
         preset = {
@@ -99,7 +99,7 @@ return {
           finder = "files",
           format = "file",
           show_empty = true,
-          hidden = false,
+          hidden = true,
           ignored = true,
           follow = false,
           supports_live = true,
@@ -132,7 +132,7 @@ return {
             args = {}, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
           },
           file = {
-            max_size = 5 * 1024 * 1024, -- 5MB
+            max_size = 10 * 1024 * 1024, -- 10MB,
             max_line_length = nil,
             ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
           },
