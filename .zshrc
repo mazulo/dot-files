@@ -55,7 +55,9 @@ export PATH="$HOME/.local/bin:$PATH"
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
+_vew="$(command -v virtualenvwrapper.sh 2>/dev/null)"
+[[ -n "$_vew" ]] && source "$_vew"
+unset _vew
 
 # ------------ fzf config ------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -172,7 +174,7 @@ alias files='git diff HEAD --diff-filter=d --name-only -- '\''*.py'\'' | awk '\'
 alias gad='git add'
 alias ls='ls --color=auto'
 alias run="./bin/run"
-alias gclone="rsync -avP --exclude-from=../.gitignore mazulo@hostinger2:/home/mazulo/dev/grabber /Users/mazulo/dev/config/dot-files/.config/ && cd grabber && head -n 1 assets/txt/commands.txt"
+alias gclone="rsync -avP --exclude-from=../.gitignore mazulo@hostinger2:/home/mazulo/dev/grabber $HOME/dev/config/dot-files/.config/ && cd grabber && head -n 1 assets/txt/commands.txt"
 alias reload="exec $SHELL"
 alias ipy='ipython --HistoryManager.hist_file=:memory: -i -c "$start_code"'
 alias load-grabber="uv pip uninstall grabberlib2 && uv sync"
@@ -216,7 +218,7 @@ unload-direnv() {
 eval "$(starship init zsh)"
 
 # bun completions
-[ -s "/Users/mazulo/.bun/_bun" ] && source "/Users/mazulo/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
