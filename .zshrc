@@ -49,7 +49,7 @@ export PATH="./node_modules/.bin:$PATH"
 # Updating PATH
 export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
-. "$HOME/.local/bin/env"
+# . "$HOME/.local/bin/env"
 
 # virtualenvwrapper settings
 export WORKON_HOME=$HOME/.virtualenvs
