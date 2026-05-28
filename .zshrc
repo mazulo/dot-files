@@ -55,9 +55,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-_vew="$(command -v virtualenvwrapper.sh 2>/dev/null)"
-[[ -n "$_vew" ]] && source "$_vew"
-unset _vew
+source /usr/local/bin/virtualenvwrapper.sh
 
 # ------------ fzf config ------------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
